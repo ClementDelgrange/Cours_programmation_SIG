@@ -1,0 +1,151 @@
+.reveal {
+	font-family: arial;
+    color: black;
+    background-color: white;
+}
+.reveal h1 {
+    font-size: 0.8em;
+    color: rgb(114, 121, 127);
+	text-align: right;
+	padding-top: 1em;
+}
+.reveal h2 {
+    font-size: 1.50em;
+	font-weight: bold;
+    color: rgb(114, 121, 127);
+	text-transform: uppercase;
+	/*padding-top: 1em;*/
+}
+.reveal h3 {
+    font-size: 1.25em;
+    color: rgb(114, 121, 127);
+}
+.reveal h4, .reveal h5, .reveal h6 {
+    font-size: 1.00em;
+    color: rgb(114, 121, 127);
+}
+.reveal pre {
+    width: 100%;/* was 90% */
+    font-size: 0.50em;/* was 0.55em */
+}
+.reveal pre code {
+    background: white;/* was #3F3F3F */
+    color: black;/* was #DCDCDC */
+}
+.reveal ul, .reveal ol, .reveal dl {
+    list-style: none;
+    margin-left: 0px;
+}
+.reveal li {
+    list-style-type: none;
+	font-size: 1em;
+}
+.reveal li li {
+	font-size: 0.8em;
+}
+.reveal li::before {
+    content: '\25aa';
+    color: #96BF0D;
+    font-size: 1.5em;
+    margin-right: 0.5em;
+    vertical-align: baseline;
+}
+.reveal li li::before {
+    content: '\25aa';
+    color: #737A7E;
+    font-size: 1.0em;
+    margin-right: 0.5em;
+    vertical-align: baseline;
+}
+.reveal ul ul, .reveal ul ol, .reveal ul dl {
+    list-style: none;
+}
+.reveal .slide-number {
+    bottom: 1%;
+    right: 30%;
+    display: list-item;
+    list-style-type: square;
+}
+.reveal .slides {
+    background-color: white;
+}
+.reveal .slides > section:first-child {
+	background-image: url("../img/logos/ign-logo-ensg.jpg"), url("../img/logos/ign-logo-ign.png");
+    background-position: left 15px, right top;
+    background-size: 284px 177px , 182px 196px;
+	background-repeat: no-repeat;
+}
+.reveal .slides > section:first-child h1 {
+    padding-top: 330px;
+	padding-left: 10px;
+    text-transform: uppercase;
+	text-align: left;
+	font-size: 1.8em;
+	font-weight: bold;
+}
+.reveal .slides > section:first-child h3 {
+	color: rgb(151, 191, 13);
+	margin-left: 10px;
+	text-transform: uppercase;
+	text-align: left;
+	font-size: 0.95em;
+	font-weight: bold;
+}
+.reveal .slides > section:first-child h4 {
+	color: white;
+}
+.reveal .slides > section {
+    height: inherit;
+    background-image: url('../img/slide/ign-haut.png');
+    background-repeat: repeat-x;
+}
+.reveal .slides > section > section {
+	height: inherit;
+}
+.reveal .slides > section > section.titleslide h1 {
+    font-size: 5.00em !important;
+    background-color: #737A7E;
+    color: white;
+    height: 60%;
+} 
+.reveal .slides > section > section.level2 {
+    text-align: left;
+    padding-top: 10px;
+}
+.reveal .slides > section > section figure img {
+	max-width: 75%;
+	max-height: 75%;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+.reveal .slides > section > section figcaption {
+	font-style: italic;
+	font-size: 0.5em;
+	color: black;
+	text-align: center;
+}
+#slide-ign-footer {
+    position: fixed;
+    bottom: 1%;
+    left: 30%;
+    font-size: 12px;
+    opacity: 0.5;
+    z-index: 31;
+    width:30%;
+}
+#slide-ign-footer .slide-ign-title {
+    display: list-item;
+    list-style-type: square;
+    position: relative;
+    left: 0px;
+    bottom: -12px;
+}
+#slide-ign-footer .slide-ign-date {
+    display: list-item;
+    list-style-type: square;
+    position: relative;
+    left: 70%;
+    bottom: 0%;
+}
+

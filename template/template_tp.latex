@@ -1,0 +1,162 @@
+% Modules generaux
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel} % prise en charge du francais
+\usepackage[table]{xcolor} % tableaux
+\usepackage{longtable} 
+\usepackage{booktabs}
+\usepackage{graphicx} % images
+\usepackage{float}
+\usepackage{framed}
+\usepackage[font=small]{caption}
+
+% Marges
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+% Personnalisation des titres
+\usepackage{titlesec}
+\titlespacing{\section}{0em}{4em}{1em}
+\titlespacing{\subsection}{0em}{2em}{0em}
+\titlespacing{\subsubsection}{0em}{0.5em}{0em}
+
+% Mise en page
+\setlength{\parskip}{1.2em}
+\renewcommand{\floatpagefraction}{1}
+
+% Couleurs personnalisées
+\usepackage{color}
+\definecolor{lightgray}{gray}{0.98}
+\definecolor{gray}{rgb}{0.6, 0.6, 0.65}
+\definecolor{green}{rgb}{0.133, 0.545, 0.133}
+\definecolor{blue}{rgb}{0, 0, 1}
+\definecolor{red}{rgb}{0.6, 0.1, 0.1}
+
+% Liens hypertextes
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	breaklinks=true,
+	urlcolor=blue,
+	linkcolor=blue,
+	pdfborder=000,
+	pdftex=true
+}
+
+% Mise en forme des codes python
+\usepackage{listingsutf8}
+\lstset{
+	language=python,
+	inputencoding=utf8/latin1,
+	extendedchars=true,
+	keywordstyle=\bfseries\ttfamily\color{blue},
+	identifierstyle=\ttfamily,
+	commentstyle=\color{gray},
+	stringstyle=\ttfamily\color{green},
+	showstringspaces=false,
+	basicstyle=\footnotesize\ttfamily,
+	tabsize=2,
+	breaklines=true,
+	extendedchars=true,
+	xleftmargin=1cm, 
+	xrightmargin=1cm,
+	backgroundcolor=\color{lightgray},
+	literate=%
+		{é}{{\'{e}}}1
+		{è}{{\`{e}}}1
+		{ê}{{\^{e}}}1
+		{ë}{{\¨{e}}}1
+		{û}{{\^{u}}}1
+		{ù}{{\`{u}}}1
+		{â}{{\^{a}}}1
+		{à}{{\`{a}}}1
+		{î}{{\^{i}}}1
+		{ô}{{\^{o}}}1
+		{ç}{{\c{c}}}1
+}
+
+% Commandes personnalisées
+\newcommand{\bslash}{\texttt{\symbol{92}}}
+
+\newcommand{\reponse}{\begin{tabbing}
+\hspace{2cm}\=\kill
+Réponse \> ............................................................................................ \\ 
+ \> ............................................................................................
+\end{tabbing}
+}
+\newenvironment{note}{%
+	\begin{tabular}[t t]{c c}
+		\includegraphics{img/tips.png} &
+		\begin{minipage}[c]{0.9\linewidth}
+}{%
+		\end{minipage}
+	\end{tabular}
+}
+
+\newcommand{\code}[1]{\lstinline{#1}}
+
+\newenvironment{python}{%
+	\begin{lstlisting}
+}{%
+	\end{lstlisting}
+}
+
+\renewenvironment{quote}{\begin{framed}}{\end{framed}}
+
+% Patch : probleme avec les tightlist
+\def\tightlist{}
+
+% Patch : probleme avec les images
+\let\origfigure=\figure
+\let\endorigfigure=\endfigure
+\renewenvironment{figure}[1][]{%
+  \origfigure[H]
+}{%
+  \endorigfigure
+}
+  
+% Patch : probleme de taille maximale des images
+\makeatletter
+\def\maxwidth{\ifdim \Gin@nat@width > 0.8\linewidth 0.8\linewidth \else \Gin@nat@width \fi}
+\makeatother
+\let\oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[1]{\oldincludegraphics[width=\maxwidth]{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Informations générales sur le document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{$title$}
+\author{$for(author)$$author$$sep$\\$endfor$}
+\date{$date$}
+
+% Définition des entêtes et pieds de page
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{$author$}
+\fancyfoot[C]{-\thepage-}
+\fancyfoot[R]{$title$}
+\renewcommand{\footrulewidth}{0.5pt}
+
+%%%%%%%%%%%%%
+% Le document
+%%%%%%%%%%%%%
+\begin{document}
+\parindent=0cm
+
+\begin{center}
+	\hrule
+	\vspace{1em}
+	{\small \textit{$author$}}\\	
+	\vspace{0.5em}
+	{\Large \bfseries{$title$}}
+	\vspace{1em}
+	\hrule
+\end{center}
+
+\vspace{2em}
+
+$body$
+
+\end{document}
