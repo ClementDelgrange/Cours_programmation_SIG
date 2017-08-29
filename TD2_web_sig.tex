@@ -1,0 +1,641 @@
+% Description: TD de programmation sous SIG - API Javascript for ArcGIS
+
+% Modules generaux
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel} % prise en charge du francais
+\usepackage[table]{xcolor} % tableaux
+\usepackage{graphicx} % images
+\usepackage{float}
+\usepackage[font=small]{caption}
+
+% Marges
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+% Personnalisation des titres
+\usepackage{titlesec}
+\titlespacing{\section}{0em}{4em}{1em}
+\titlespacing{\subsection}{0em}{2em}{0em}
+\titlespacing{\subsubsection}{0em}{0.5em}{0em}
+
+% Mise en page
+\setlength{\parskip}{1.2em}
+\renewcommand{\floatpagefraction}{1}
+
+% Couleurs personnalisées
+\usepackage{color}
+\definecolor{lightgray}{gray}{0.98}
+\definecolor{gray}{rgb}{0.6, 0.6, 0.65}
+\definecolor{green}{rgb}{0.133, 0.545, 0.133}
+\definecolor{blue}{rgb}{0, 0, 1}
+\definecolor{red}{rgb}{0.6, 0.1, 0.1}
+
+% Liens hypertextes
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	breaklinks=true,
+	urlcolor=blue,
+	linkcolor=blue,
+	pdfborder=000,
+	pdftex=true
+}
+
+% Mise en forme des codes javascript
+\usepackage{listingsutf8}
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+\lstset{
+	language=JavaScript,
+	keywordstyle=\bfseries\ttfamily\color{blue},
+	identifierstyle=\ttfamily,
+	commentstyle=\color{gray},
+	stringstyle=\ttfamily\color{green},
+	showstringspaces=false,
+	basicstyle=\footnotesize\ttfamily,
+	tabsize=2,
+	breaklines=true,
+	extendedchars=true,
+	xleftmargin=1cm, 
+	xrightmargin=1cm,
+	backgroundcolor=\color{lightgray},
+	literate=%
+		{é}{{\'{e}}}1
+		{è}{{\`{e}}}1
+		{ê}{{\^{e}}}1
+		{ë}{{\¨{e}}}1
+		{û}{{\^{u}}}1
+		{ù}{{\`{u}}}1
+		{â}{{\^{a}}}1
+		{à}{{\`{a}}}1
+		{î}{{\^{i}}}1
+		{ô}{{\^{o}}}1
+		{ç}{{\c{c}}}1
+}
+
+% Commandes personnalisées
+\newcommand{\bslash}{\texttt{\symbol{92}}}
+\newcommand{\action}{$\Rightarrow$ }
+\newcommand{\reponse}{
+	\begin{tabbing}
+	\hspace{2cm}\=\kill
+	Réponse \> ............................................................................................ \\ 
+ 	\> ............................................................................................
+	\end{tabbing}
+}
+
+\newenvironment{note}{%
+	\begin{tabular}[t t]{c c}
+		\includegraphics{img/tips.png}
+		 &
+		\begin{minipage}[c]{0.9\linewidth}
+			\begin{sffamily}
+}{%
+			\end{sffamily}
+		\end{minipage}
+	\end{tabular}	
+}
+
+\newsavebox{\mybox}
+\newenvironment{objectifs}{
+	\begin{lrbox}{\mybox}
+		\begin{minipage}{0.9\textwidth}
+			\vspace{1em}
+			\begin{tabular}[t t]{c c}
+				\includegraphics[width=0.1\linewidth]{img/goals.jpg} &
+				\begin{minipage}[c]{0.8\linewidth}
+					\hspace{2em}\textbf{\large{Objectifs :}} \\
+}{
+				\end{minipage}
+			\end{tabular}
+			\vspace{1em}
+		\end{minipage}
+	\end{lrbox}
+	\fbox{\usebox{\mybox}}
+}
+
+\newcommand{\code}[1]{\lstinline{#1}}
+
+\newenvironment{python}{%
+	\begin{lstlisting}
+}{%
+	\end{lstlisting}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Infos générales sur le document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{API Javascript for ArcGIS}
+\author{Clément Delgrange}
+\date{\today}
+
+% Entetes et pieds de page
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\makeatletter
+\fancyfoot[L]{ENSG}
+\fancyfoot[C]{-\thepage-}
+\fancyfoot[R]{\@title}
+\makeatother
+\renewcommand{\footrulewidth}{0.5pt}
+
+
+%%%%%%%%%%%%
+%%% Document
+%%%%%%%%%%%%
+\begin{document}
+\parindent=0cm
+
+\makeatletter
+\begin{center}
+	\hrule
+	\vspace{1em}
+	{\small \textit{Programmation sous SIG}}\\	
+	\vspace{0.5em}
+	{\Large \bfseries{\@title}}
+	\vspace{1em}
+	\hrule
+\end{center}
+\makeatother
+
+
+
+\begin{objectifs}
+\begin{itemize}
+	\item appendre les bases de l'API Javascript for ArcGIS
+	\item réaliser des applications web SIG à l'aide de cette API
+\end{itemize}
+\end{objectifs}
+
+
+%\paragraph{Ressources utiles}
+%\begin{itemize}
+%	\item cours de programmation sous SIG
+%	\item \url{https://developers.arcgis.com/javascript/}
+%\end{itemize}
+
+
+
+\section*{Préalables}
+Dans ce TD, nous utiliserons la version 4.4 de l'API.
+
+Les développements que vous réaliserez doivent être déposés sur un serveur web. Vous pouvez travailler en local en installant un serveur web sur votre poste (installer WAMP ou EasyPHP sous windows).
+% \textbackslash{}\textbackslash{}zebra.ensg.eu\textbackslash{}inetpub\textbackslash{}wwwroot
+
+Certaines parties utilisent des données publiées sur un serveur ArcGIS. Celui de l'école est \code{zebra.ensg.eu}.
+
+\subsection*{Ce que vous devez savoir en Javascript}
+Le JavaScript est un langage interprété à typage dynamique faible. Il supporte de nombreux paradigmes de programmation : orienté objets, impératif, etc. Enfin, il n'a aucun rapport avec Java!
+
+En règle général, le code JavaScript est utilisé dans le contexte des applications web où il est exécuté dans les navigateurs.
+
+Pour insérer du code JavaScript dans une page web, nous disposons de deux méthodes :
+\begin{itemize}
+	\item l'écrire dans une balise \code{<script>} n'importe où dans la page HTML;
+	\item l'écrire dans un fichier séparé qui sera lié à la page HTML grâce à une balise \code{<script>} avec un attribut \code{src}.
+\end{itemize}
+
+Généralement nous utiliserons la seconde méthode et nous placerons la balise à la fin du \code{<body>}.
+
+Fichier HTML :
+\begin{lstlisting}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello World!</title>
+</head>
+<body>
+	<script type="text/javascript" src="helloworld.js"></script>
+</body>
+</html>
+\end{lstlisting}
+
+Fichier \code{helloworld.js} (qui ici ouvre une boîte de dialogue avec un message \textit{Hello world!}) :
+\begin{lstlisting}
+alert('Hello world!');
+\end{lstlisting}
+
+Quelques caractéristiques : instructions séparées par des points virgules, sensible à la casse
+
+Commentaires :
+\begin{lstlisting}
+//commentaire sur une ligne
+
+/* Commentaires
+sur plusieurs
+lignes */
+\end{lstlisting} 
+
+Pour afficher un message dans la console :
+\begin{lstlisting}
+console.log(msg)
+\end{lstlisting} 
+
+Déclaration et instanciation d'une variable : 
+\begin{lstlisting}
+// En deux étapes distinctes
+var maVariable;
+mavariable = 5;
+
+// En une seule fois
+var maVariable = 5;
+\end{lstlisting} 
+
+Boucles :
+\begin{lstlisting}
+for(var i = 0; i < 5; i++) {
+  alert('Itération n' + i);
+}
+\end{lstlisting} 
+
+Classes, objets et constucteurs :
+\begin{lstlisting}
+var objet = new Classe({
+	param1: val1,
+	param2: val2,
+	...
+});
+\end{lstlisting}
+ou
+\begin{lstlisting}
+var objet = new Classe();{
+objet.param1 = val1;
+objet.param2 = val2;
+...
+\end{lstlisting}
+
+\newpage
+
+
+
+\section{Premiers pas: afficher un fond de plan}
+Pour commencer, nous allons afficher un fond de carte dans une application web.
+
+\action Créez un fichier HTML basique contenant pour l'instant uniquement les lignes suivantes\footnote{La première balise meta indique que la suite de l'HTML sera encodée en UTF-8, tandis que la seconde permet de contrôler la mise en page sur les navigateurs mobiles.} :
+\begin{lstlisting}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<title>First Web SIG application</title>
+	</head>
+	<body>
+	</body>
+</html>
+\end{lstlisting}
+
+Pour utiliser l'API Javascript for ArcGIS, nous avons plusieurs possibilités :
+\begin{itemize}
+	\item la télécharger\footnote{\url{https://developers.arcgis.com/downloads/apis-and-sdks?product=javascript}} et la référencer en local dans la page HTML, ce qui est utile si vous souhaitez faire des tests alors que vous n'avez pas accès à internet;
+	\item référencer l'API dans la page HTML en pointant vers le CDN (content delivery network), ce qui assure de travailler avec une version à jour de l'API;
+	\item utiliser Bower, un gestionnaire de paquets pour le web, pour installer une version spécifique de l'API en local, ce qui est utile dans certaines configurations.
+\end{itemize}
+
+Nous utiliserons dans ce TD la deuxième solution.
+
+\action Ajoutez les deux balises suivantes dans l'entête de l'HTML pour référencer l'API Javascript d'ArcGIS :
+\begin{lstlisting}
+<script src="https://js.arcgis.com/4.4/"></script>
+<link rel="stylesheet" href="https://js.arcgis.com/4.4/esri/css/main.css">
+\end{lstlisting}
+
+\begin{note}
+Nous utilisons ici la feuille de style par défaut d'Esri, mais il est possible d'en utiliser d'autres\footnote{\url{https://developers.arcgis.com/javascript/latest/guide/styling/index.html}}, voir de la personnaliser.
+\end{note}
+
+Il nous reste à ajouter le code permettant de charger les différents éléments de l'API. 
+
+\action Ajoutez une balise \code{<script type="text/javascript" src="script.js"></script>} juste avant la fermeture du \code{body} de votre page HTML, et créez le fichier JavaScript \code{script.js} dans le même répertoire que le HTML.
+
+L'API JavaScript d'ArcGIS est basée sur la bibliothèque \textbf{Dojo Toolkit}, dont le principe de fonctionnement est donc ici repris. Cela nous impactera en particulier pour un point : le mécanisme permettant d'importer des modules ou classes de l'API.
+
+La syntaxe sera la suivante :
+\begin{lstlisting}
+require(["module1", "module2", ..., "dojo/domReady!"], function(Classe1, Classe2, ...) {
+	/* écrire ici le code JavaScript pour afficher la carte */
+});
+\end{lstlisting}
+
+\begin{note}
+L'utilisation de \code{dojo/domReady} est équivalente à celle d'un attribut onLoad en HTML : le code ne s'exécute que lorsque le \textit{document object model} (DOM) est complètement chargé.
+\end{note}
+
+Pour créer une carte avec l'API, nous utiliserons la classe \code{Map} du module \code{esri/Map}. C'est elle qui permet de gérer les différentes couches affichées ou encore le fond de plan. Pour rendre visible la carte, elle doit être référencée dans un objet faisant le lien entre la carte et la balise HTML où l'afficher. Cet objet c'est le \code{MapView} du module \code{esri/views/Mapview}.
+
+\action Ajoutez la fonction \code{require()} avec le bons paramètres à votre JavaScript.
+
+La déclaration des objets \code{Map} et \code{MapView} s'effectue de la manière suivante :
+\begin{lstlisting}
+var myMap = new Map({
+    basemap: "satellite"  // utilisation d'une image satellite comme fond de plan
+});
+
+var myView = new MapView({
+	container: "viewDiv",  // affichage de la carte dans la balise viewDiv du html
+	map: myMap
+});
+\end{lstlisting}
+
+\action Recopiez ce code dans votre fonction \code{require()}.
+
+Ces instructions spécifient entre autre que le contenu de la carte doit s'afficher dans une balise d'identifiant \code{viewDiv}. 
+
+\action Ajoutez cette balise dans le \code{body} de votre page HTML.
+
+La carte contenue dans cette balise ne sera enfin visible que si vous lui imposez une taille minimale.
+
+\action En référencant un fichier de style ou en ajoutant une balise \code{<style>}, précisez que la carte doit s'étendre sur toute l'étendue de la page (propriétés \code{height} et \code{width} à 100\%).
+
+Vous pouvez enfin aller dans un navigateur pour tester votre application !
+
+\begin{note}
+Dans ce permier exemple, nous avons utilisé des options standards pour les objets \code{Map} et \code{MapView}, mais l'API permet de jouer sur de nombreux paramètres.
+
+Pour la carte, nous pouvons par exemple changer le fond de plan. Parmis les options nous avons : streets, satellite, hybrid, topo, gray, terrain, osm, etc.
+
+Pour la vue, il est possible de modifier le centre, le niveau de zoom, l'orientation, etc.
+
+Consultez la documentation\footnote{\url{https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html} et \url{https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html}} pour la liste complète des propriétés sur lesquelles il est possible de jouer.
+\end{note}
+
+
+
+\section{Passer à une vue 3D}
+Les derniers versions de l'API Javascript for ArcGIS ont grandement simplifié la réalisation de scènes 3D. En effet, pour indiquer que l'on souhaite obtenir une vue 3D, il suffit d'utiliser une objet de type \code{SceneView} à la place de \code{MapView}. Et il n'y a rien de plus à faire !
+
+\action En repartant de l'exemple précédent, réalisez une application web SIG affichant des images satellites sur un globe 3D.
+
+\begin{note}
+Ici encore, des options de l'objet \code{SceneView}\footnote{\url{https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html}} peuvent être spécifiées dans le code : centre, niveau de zoom, modèle d'élévation, etc.
+\end{note}
+
+Excepté ce petit changement, l'utilisation de l'API est identique que l'on désire travailler en 2D ou en 3D. Pour la suite de ce TD, nous resterons en vue 3D.
+
+
+
+\section{Ajout d'une couche d'entités}
+Pour l'instant, notre application web SIG est assez basique. Pour la rendre plus utile, nous allons commencer par y ajouter une couche d'entités (objet \code{FeatureLayer} du module \code{esri/layers/FeatureLayer}).
+
+Pour ajouter une couche, l'API propose globalement deux approches :
+\begin{itemize}
+	\item intégrer la ressource en utilisant l'adresse de son protocole REST;
+	\item dans le cas d'une ressource publiée sur ArcGIS Online (ou Portal for ArcGIS), utiliser son identifiant sur la plateforme.
+\end{itemize}
+
+Nous utiliserons ici la deuxième solution. La création de la \code{FeatureLayer} s'effectuera donc en passant un objet de type \code{PortalItem} au constructeur de \code{FeatureLayer} :
+\begin{lstlisting}
+var featureLayer = new FeatureLayer({
+	portalItem: {
+		id: "<arcgis_online_feature_layer_id>"
+	}
+});
+\end{lstlisting}
+
+Puis une fois la couche définie, nous l'ajoutons à la carte par \code{myMap.add(featureLayer);}.
+
+Nous voulons ajouter le bâtiment publié dans une carte ArcGIS Online lors du TD précédent dans notre application web SIG. Il nous faut pour cela générer préalablement la couche d'entités correspondante dans ArcGIS Online.
+
+\action Sur ArcGIS Online, ouvrez la carte web réalisée lors du TD précédent (contenu \textit{BatiENSG} de type \textit{Web Map}).
+
+\action Cliquez sur les \code{...} après la couche \textit{Bâtiment ENSG} et sélectionnez \textbf{Enregistrer la couche}.
+\begin{figure}[H]
+	\center \includegraphics[width=0.3\textwidth]{img/td2/ago_enregistrer_couche.png} \\
+\end{figure}
+
+\action Revenez sur la page des contenus.
+
+\action Ouvrez la ressource de type \textit{Feature Layer}.
+
+L'identifiant ArcGIS Online se retrouve dans l'URL :
+\begin{figure}[H]
+	\center \includegraphics[width=0.8\textwidth]{img/td2/js_ago_mapid.jpg} \\
+\end{figure}
+
+\action En vous servant de la syntaxe donnée plus haut et de l'identifiant de la couche, ajoutez-la à votre application web SIG.
+
+\begin{note}
+Depuis le début de ce TD, nous créons une carte en définissant un fond de plan. Il n'est en fait pas obligatoire d'en utiliser un. Si aucun argument n'est passé au constructeur, les entités s'affichent sur un fond blanc :
+\begin{figure}[H]
+	\center \includegraphics[width=0.4\textwidth]{img/td2/js_sans_fond_plan.png} \\
+\end{figure}
+\end{note}
+
+
+
+\section{Déclencher une action après le chargement d'un objet}
+
+\begin{lstlisting}
+myView.then(function(){
+	// Toutes les ressources de la vue myView ont été chargée
+	
+}, function(error){
+	// Il y a eu un problème au chargement
+    
+});
+\end{lstlisting}
+
+
+
+Exemple : activer l'élévation d'une scène 3D
+
+\begin{lstlisting}
+map.ground.layers.forEach(function(layer) {
+	layer.visible = true;
+});
+\end{lstlisting}
+
+Pour plus d'intérêt (Champs-sur-Marne c'est un peu plat), vous pouvez utiliser la couche d'entités d'identifiant "0aca29c0e8d7447282ba205f6e0942e3" sur ArcGIS Online.
+
+
+afficher coordonnées clics souris
+
+
+
+\section{Bâtiments en 3D}
+Nous allons tenter de représenter les bâtiments en volume. Pour commencer, nous allons utiliser la même hauteur pour tous les bâtiments puis nous essayerons de tenir compte de leur hauteur réelle.
+
+Le principe est le suivant :
+\begin{itemize}
+	\item définir un \code{ExtrudeSymbol3DLayer}\footnote{\url{https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-ExtrudeSymbol3DLayer.html}} en lui affectant une couleur et une taille raisonnable (10m);
+	\item définir un \code{PolygonSymbol3D}\footnote{\url{https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PolygonSymbol3D.html}} en utilisant comme couche de symboles l'\code{ExtrudeSymbol3DLayer} définie précédemment;
+	\item appliquer à la couche des bâtiments un rendu de type \code{SimpleRenderer}\footnote{\url{https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-SimpleRenderer.html}}) avec comme symbole celui défini juste avant.
+\end{itemize}
+
+\begin{note}
+Le principe est le même pour appliquer n'importe qu'elle symbologie à une couche : définir un symbol puis appliquer un rendu. 
+\end{note}
+
+\action En vous aidant des différentes pages de la documentation, appliquez un rendu 3D aux bâtiments.
+
+Pour faire varier la taille en fonction de la hauteur, nous allons jouer avec la propriété \code{visualVariables} de l'objet \code{SimpleRenderer}.
+
+\action Regardez dans la documentation comment fonctionne cette propriété et modifiez votre code en conséquence.
+
+
+
+\section{Ajout de widgets}
+Les widgets sont des composants "clé-en-main" de l'API qui peuvent être utilisés dans une applications. Leurs champs d'actions sont assez variés : légende, popup, miniature, outils de mesure, de recherche ou de navigation, etc.
+
+Nous ajouterons une légende à notre application. L'utilisation des autres widgets est similaire. 
+
+\action Définissez une légende à l'aide du code suivant :
+\begin{lstlisting}
+// on crée un nouveau widget (ici une légende)
+var legend = new Legend({
+  view: myView, // on indique à quelle vue s'applique le widget
+  layerInfos: [{ 
+    layer: featureLayer,
+    title: "Bâtiment"
+  }] // propriétés spécifiques au widget (ici : les couches et leurs noms)
+});
+\end{lstlisting}
+
+\action Puis ajoutez la légende à la vue avec \code{myView.ui.add(legend, "bottom-right")}.
+
+
+
+%\section{Utilisation d'une carte ArcGIS Online}
+%Il est également possible d'utiliser une carte d'ArcGIS Online comme base de l'application. On utilisera dans ce cas le module \textit{esri/arcgis/utils} et sa fonction \textit{createMap} :
+%\begin{enumerate}
+%	\item récupérez l'identifiant de votre carte TD1-vegetation\_<votre nom> du TD1
+%	\begin{figure}[H]
+%		\center \includegraphics[width=0.80\textwidth]{img/td2/js_ago_mapid.jpg} \\
+%	\end{figure}
+%	\item dans un nouveau document HTML, chargez le module et appelez la fonction \textit{createMap} de la manière suivante :
+%\begin{lstlisting}
+%require([
+%	"esri/map",
+%	"esri/arcgis/utils",
+%	"dojo/domReady!"
+%	], function(Map, arcgisUtils){
+%	arcgisUtils.createMap(<map_id>, "mapDiv").then(function (response) {
+%		map = response.map;
+%	});
+%});
+%\end{lstlisting}	
+%\end{enumerate}
+
+
+%\subsection{Ajouter une couche ArcGIS Server}
+%Dans cette partie, nous allons essayer de superposer les données publiées lors du TD1 au fond de carte Open Street Map. Nous utiliserons le map service TD1\_<votre nom>.
+%
+%Pour commencer, chargez une couche vecteur en utilisant le module \textit{esri/FeatureLayer}.
+%\begin{enumerate}
+%	\item retrouvez et notez l'URL du service de carte associée à la couche BATI\_INDIFERENCIE publiée sur le serveur ArcGIS;
+%	\item importez le module \textit{esri/FeatureLayer} (notamment en le passant en argument de la fonction \textit{require});
+%	\item utilisez la syntaxe suivante pour charger la couche dans votre carte :
+%\end{enumerate}
+%\begin{lstlisting}
+%fLayer = new esri.layers.FeatureLayer(<layer_URL>);
+%map.addLayer(fLayer)
+%\end{lstlisting}
+%
+%\action Rechargez la page web.
+
+
+
+%\newpage
+%
+%\section{Réalisation d'un application web SIG de calcul d'itinéraires}
+%
+%Cet exercice se propose de réaliser une application web SIG permettant de déterminer l'itinéraire le plus rapide entre plusieurs points saisis par l'utilisateur sur une carte.
+%
+%L'ensemble de l'exercice, de la préparation du réseau routier à la réalisation de l'application web, sera réalisé en utilisant les technologies Esri.
+%\begin{enumerate}
+%	\item paramétrage d'un réseau routier dans ArcMap à l'aide de l'extension Network Analyst;
+%	\item publication d'un service Network Analyst sur le serveur ArcGIS de l'ENSG;
+%	\item réalisation d'une application web SIG contenant les couches utiles avec une symbolisation adaptée;
+%	\item récupération des coordonnées d'un clic souris sur la carte;
+%	\item ajout d'un service Network Analyst dans l'application web;
+%	\item calcul de l'itinéraire lorsque 2 points ou plus ont été saisis.
+%\end{enumerate}
+%
+%Si le temps le permet, vous pourrez également coder les fonctionnalités optionnelles suivantes :
+%\begin{itemize}
+%	\item ajout d'un bouton pour ré-initialiser l'itinéraire;
+%	\item ajout d'une croix sur la carte pour marquer les positions de départ et d'arrivée;
+%	\item modification de la couleur de la commune située sous un point d'itinéraire (avec différenciation départ/arrivée).
+%	\item modification de l'affichage des lieux-dits habités en fonction du niveau de zoom.
+%\end{itemize}
+%
+%\textbf{L'application web SIG réalisée sera à rendre en fin de séance. Elle comptera dans la note globale du module.}
+%
+%Vous disposerez des données suivantes pour réaliser le travail :
+%\begin{itemize}
+%	\item Réseau routier BDTopo
+%	\item Limites de communes BDTopo
+%	\item Lieu-dits habités BDTopo
+%\end{itemize}
+%
+%
+%\subsection{Paramétrage d'un réseau routier dans ArcMap}
+%La première étape du travail consiste à paramétrer le réseau routier BDTopo pour le rendre compatible avec les calculs d'itinéraires.
+%
+%L'extension \textit{NetworkAnalyst} d'ArcMap nous sera utile pour cette tache. Après avoir activé l'extension, on utilisera le paramétrage suivant pour les vitesses moyennes sur chaque tronçon (le découpage se fait en utilisant l'attribut CLASSEMENT de la classe d'entités TRONCON\_ROUTE) :
+%\begin{itemize}
+%	\item CLASSEMENT = 'Autoroute' \action Vitesse = 110km/h
+%	\item CLASSEMENT = 'Nationale' \action 90km/h
+%	\item CLASSEMENT = 'Départementales' \action 70km/h
+%	\item CLASSEMENT = 'Autre classement' \action 40km/h
+%\end{itemize}
+%
+%Vous pouvez vérifier dans ArcMap que votre paramétrage est correct en essayant de calculer quelques itinéraires.
+%
+%
+%\subsection{Publication d'un service Network Analyst}
+%Après avoir paramétré le réseau routier, publiez un service de type NetworkAnalyst. Il s'agit en fait d'activer la fonctionnalité analyse de réseau d'un service de carte. Désactivez également les fonctionnalités qui ne nous seront pas utiles.
+%	
+%	
+%\subsection{Création de l'application web SIG}
+%Créez une nouvelle application web SIG basée sur l'API Javascript pour ArcGIS.
+%		
+%Ajoutez dans cette application quelques couches qui permettront à l'utilisateur de se repérer (communes, réseau routier...). Vous pouvez également ajouter un fond de carte si jugez cela utile.
+%		
+%Paramétrez la symbologie de chacune de ces couches pour 
+%		
+%On souhaite également ajouter une couche de toponymes et faire varier sa représentation en fonction de l'importance du toponyme et du niveau de zoom de l'application.
+%		
+%		
+%\subsection{Gestion des interactions utilisateur}
+%Les coordonnées des points de départ/arrivée de l'itinéraire seront celles des points saisis par l'utilisateur de l'application. 
+%	
+%Prévoyez une fonction \textit{addStop} qui sera déclenchée lorsque l'utilisateur effectuera un clic souris sur la carte.
+%	
+%Cette fonction devra ajouter un point sur la carte dans une nouvelle couche.
+%
+%En option, vous pourrez ajouter à votre application un bouton permettant de ré-initialiser les points saisis. Vous pourrez également faire modifier la couleur du point selon qu'il s'agisse du premier/dernier point saisis ou d'un point intermédiaire.
+%
+%
+%\subsection{Utilisation du service de calcul d'itinéraire}
+%Il nous reste à ajouter le service de calcul d'itinéraire dans notre application web SIG. On manipulera pour cela les objets \textit{RouteTask} et \textit{RouteParameters} de l'API Javascript pour ArcGIS.
+%	
+%Plusieurs opérations seront à réaliser, notamment :
+%\begin{itemize}
+%	\item paramétrage initial du service de calcul d'itinéraire (URL du service, liste les arrêts de l'itinéraire, référence spatiale)
+%	\item ajout des points saisis par l'utilisateur dans la liste des arrêts
+%	\item déclenchement du calcul de l'itinéraire au moment opportun
+%	\item affichage de l'itinéraire dans une nouvelle couche lorsqu'il aura été calculé
+%\end{itemize}
+
+
+\end{document}
+
+
+
