@@ -115,7 +115,7 @@ $body$
                 center: $if(center)$$center$$else$false$endif$, // Vertical centering of slides
                 minScale: $if(minScale)$$minScale$$else$0.2$endif$, // Bounds for smallestpossible content scale
                 maxScale: $if(maxScale)$$maxScale$$else$1.5$endif$, // Bounds for largest possible content scale
-                slideNumber: $if(slideNumber)$true$else$false$endif$, // Display the page number of the current slide
+                slideNumber: true, // Display the page number of the current slide
                 autoSlide: $if(duration)$$duration$$else$0$endif$, // Slide every duration milliseconds
 
                 theme: '$if(theme)$$theme$$else$default$endif$', // available themes are in /css/theme
