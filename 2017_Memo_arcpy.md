@@ -83,6 +83,14 @@ for e in envs:
 	print(e, arcpy.env[e])
 ```
 
+## Résultats des géotraitements ##
+Pour les outils de géotraitement retournant des résultats
+
+`getOutput(index)` renvoie la sortie à l'index donné. 
+
+``` python
+getOutput(index)
+```
 
 
 # Méthodes intégrées à ArcPy #
@@ -170,6 +178,14 @@ Trois fonctions du module `mapping`permettent d'ajouter une couche à un documen
 * `InsertLayer(data_frame, reference_layer, layer, {BEFORE | AFTER})` pour l'insérer avant ou après une couche donnée
 
 `RemoveLayer(data_frame, layer)` permet à l'inverse de supprimer une couche en précisant son bloc de données.  
+
+Une autre solution pour créer une couche et l'ajouter à un document ArcMap coniste à utiliser l'outil *Générer une couche* du jeu d'outils *Couches et vues tabulaires*. Pour une couche vecteur, la syntaxe est : 
+
+```python
+flayer = arcpy.MakeFeatureLayer_management (in_features, out_layer, {where_clause})`,   
+```
+
+`in_feature` étant la classe d'entités à partir de laquelle la nouvelle couche est générée. Une couche créée de cette manière est temporaire et disparait à la fin de l'exécution du script si elle n'est pas enregistrée.
 
 
 ## L'accès aux données ##

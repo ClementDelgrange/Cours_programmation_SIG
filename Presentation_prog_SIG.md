@@ -102,8 +102,9 @@
 
 * Répondre aux besoins non couverts en standard
  	* faciliter des opérations
-	* simplifier des applications
-	* sortir le SIG du bureau
+ 	* automatiser des géotraitements
+	* simplifier des applications métier
+	* *sortir le SIG du bureau*
 	* ...
 
 
@@ -148,7 +149,7 @@
 
 # Le système ArcGIS #
 
-## Généralités ##
+##  ##
 
 ![Le système ArcGIS](img/cours/arcgis.png)
 
@@ -206,9 +207,10 @@
 > Nous n'utiliserons quasiment jamais de géodatabase personnelle. 
 
 
-## ArcGIS Entreprise (ArcGIS for Server) ##
+## ArcGIS Entreprise ##
 
-* Solution de serveur SIG complet
+* ArcGIS Entreprise == ArcGIS for Server
+* Serveur SIG complet
 	* *héberger*
 	* *partager*
 	* *créer des applications web SIG*
@@ -277,18 +279,15 @@
 
 ## Utiliser des ressources ArcGIS ##
 
-* Services exposés via 4 APIs
-	* API REST
-	* API SOAP
-	* API KML
-	* API OGC
-* Catalogue des services REST
-	* <http://server_name:6080/arcgis/rest/services>
+* Services exposés via 4 protocoles
+	* REST
+		* `http://server_name:6080/arcgis/rest/services/service_name`
+	* SOAP
+	* KML
+	* OGC
 
 
 ## Options de déploiement ##
-
-Développement d'un client web : que choisir ?
 
 * Client léger
 	* Application web *clé en main*
@@ -296,7 +295,7 @@ Développement d'un client web : que choisir ?
 	* ...
 * Client lourd compatibles
 	* ArcMap, ArcGIS Pro
-* Développement d'un client riche avec les API REST
+* Développement d'un client riche avec les APIs web
 
 			
 ## Architecture ArcGIS for Server ##
@@ -349,10 +348,10 @@ Développement d'un client web : que choisir ?
 
 ## Des applications clés en main ##
 
+* 
 
 
-
-## Parlons argent ##
+## Coût des licences ##
 
 * ArcMap :
     * Advanced : 7000€
@@ -366,29 +365,28 @@ Développement d'un client web : que choisir ?
 	* 10 jetons = 1€
 	* Feature Service Storage : 10MB = 2,4 jetons
 	* Tile and data storage : 1GB = 1,2 jetons
-* plus les coûts de maintenance...
+* plus la maintenance...
 
 
 
 # ArcGIS pour le développeur #
 
-## Familles d'API ##
+## Familles d'APIs et SDKs ##
 
 * 4 grandes familles
-	* API Python
-	* API ArcObjects et ArcGIS Runtime
+	* APIs Python
+	* ArcGIS Runtime  et API ArcObjects
 	* APIs web
 	* APIs mobiles
 
 
-## API Python ##
+## APIs Python ##
 
-* 2 besoins principaux
-	* Automatiser des traitements
-	* Ecrire des traitements personnalisés
-* Développements intégrables sous forme de boîtes à outils
-* Depuis la 10.2 : déployements sous forme d'extensions
-
+* ArcGIS API for Python
+	* faire des carte, de l'analyse spatiale
+* Arcpy
+	* automatiser des géotraitements
+	* étendre les applications bureautiques
 
 
 ## L'API ArcObjects ##
@@ -396,7 +394,7 @@ Développement d'un client web : que choisir ?
 * API fondamentale d'ArcGIS
 	* ArcObjects = composants de base d'ArcGIS (*composants COM*)
 	* Création d'extensions ou d'applications autonomes
-	* Consomable via différents SDK
+	* Consomable via différents SDKs
 
 ![Diagramme ArcObjects](img/cours/api_arcobjects.png)
 

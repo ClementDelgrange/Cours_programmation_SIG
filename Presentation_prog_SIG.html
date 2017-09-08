@@ -185,8 +185,9 @@
 <li>Répondre aux besoins non couverts en standard
 <ul>
 <li>faciliter des opérations</li>
-<li>simplifier des applications</li>
-<li>sortir le SIG du bureau</li>
+<li>automatiser des géotraitements</li>
+<li>simplifier des applications métier</li>
+<li><em>sortir le SIG du bureau</em></li>
 <li>...</li>
 </ul></li>
 </ul>
@@ -244,8 +245,8 @@
 </section>
 <section id="le-système-arcgis" class="level1">
 <h1>Le système ArcGIS</h1>
-<section id="généralités-1" class="level2">
-<h2>Généralités</h2>
+<section id="section-1" class="level2">
+<h2></h2>
 <figure>
 <img src="img/cours/arcgis.png" alt="Le système ArcGIS" /><figcaption>Le système ArcGIS</figcaption>
 </figure>
@@ -330,12 +331,6 @@
 <section id="les-géodatabases" class="level2">
 <h2>Les géodatabases</h2>
 <table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Caractéristique</th>
@@ -375,10 +370,11 @@
 <p>Nous n'utiliserons quasiment jamais de géodatabase personnelle.</p>
 </blockquote>
 </section>
-<section id="arcgis-entreprise-arcgis-for-server" class="level2">
-<h2>ArcGIS Entreprise (ArcGIS for Server)</h2>
+<section id="arcgis-entreprise" class="level2">
+<h2>ArcGIS Entreprise</h2>
 <ul>
-<li>Solution de serveur SIG complet
+<li>ArcGIS Entreprise == ArcGIS for Server</li>
+<li>Serveur SIG complet
 <ul>
 <li><em>héberger</em></li>
 <li><em>partager</em></li>
@@ -386,7 +382,7 @@
 </ul></li>
 </ul>
 </section>
-<section id="arcgis-entreprise-arcgis-for-server-1" class="level2">
+<section id="arcgis-entreprise-arcgis-for-server" class="level2">
 <h2>ArcGIS Entreprise (ArcGIS for Server)</h2>
 <ul>
 <li>3 niveaux de fonctionnalités
@@ -492,26 +488,26 @@ Jeu de données raster</br>Mosaïque ou fichier de couche faisant référence à
 </tr>
 </tbody>
 </table>
+
+
 </section>
 <section id="utiliser-des-ressources-arcgis" class="level2">
 <h2>Utiliser des ressources ArcGIS</h2>
 <ul>
-<li>Services exposés via 4 APIs
+<li>Services exposés via 4 protocoles
 <ul>
-<li>API REST</li>
-<li>API SOAP</li>
-<li>API KML</li>
-<li>API OGC</li>
+<li>REST
+<ul>
+<li><code>http://server_name:6080/arcgis/rest/services/service_name</code></li>
 </ul></li>
-<li>Catalogue des services REST
-<ul>
-<li><a href="http://server_name:6080/arcgis/rest/services" class="uri">http://server_name:6080/arcgis/rest/services</a></li>
+<li>SOAP</li>
+<li>KML</li>
+<li>OGC</li>
 </ul></li>
 </ul>
 </section>
 <section id="options-de-déploiement" class="level2">
 <h2>Options de déploiement</h2>
-<p>Développement d'un client web : que choisir ?</p>
 <ul>
 <li>Client léger
 <ul>
@@ -523,7 +519,7 @@ Jeu de données raster</br>Mosaïque ou fichier de couche faisant référence à
 <ul>
 <li>ArcMap, ArcGIS Pro</li>
 </ul></li>
-<li>Développement d'un client riche avec les API REST</li>
+<li>Développement d'un client riche avec les APIs web</li>
 </ul>
 </section>
 <section id="architecture-arcgis-for-server" class="level2">
@@ -553,8 +549,7 @@ Jeu de données raster</br>Mosaïque ou fichier de couche faisant référence à
 <section id="arcgis-online" class="level2">
 <h2>ArcGIS Online</h2>
 <ul>
-<li><a href="http://www.arcgis.com" class="uri">http://www.arcgis.com</a><br />
-</li>
+<li><a href="http://www.arcgis.com">http://www.arcgis.com</a><br /></li>
 <li>Un SIG dans le cloud
 <ul>
 <li>gestion collaborative de cartes et services géographiques</li>
@@ -591,9 +586,12 @@ Jeu de données raster</br>Mosaïque ou fichier de couche faisant référence à
 </section>
 <section id="des-applications-clés-en-main" class="level2">
 <h2>Des applications clés en main</h2>
+<ul>
+<li></li>
+</ul>
 </section>
-<section id="parlons-argent" class="level2">
-<h2>Parlons argent</h2>
+<section id="coût-des-licences" class="level2">
+<h2>Coût des licences</h2>
 <ul>
 <li>ArcMap :
 <ul>
@@ -615,34 +613,36 @@ Jeu de données raster</br>Mosaïque ou fichier de couche faisant référence à
 <li>Feature Service Storage : 10MB = 2,4 jetons</li>
 <li>Tile and data storage : 1GB = 1,2 jetons</li>
 </ul></li>
-<li>plus les coûts de maintenance...</li>
+<li>plus la maintenance...</li>
 </ul>
 </section>
 </section>
 <section id="arcgis-pour-le-développeur" class="level1">
 <h1>ArcGIS pour le développeur</h1>
-<section id="familles-dapi" class="level2">
-<h2>Familles d'API</h2>
+<section id="familles-dapis-et-sdks" class="level2">
+<h2>Familles d'APIs et SDKs</h2>
 <ul>
 <li>4 grandes familles
 <ul>
-<li>API Python</li>
-<li>API ArcObjects et ArcGIS Runtime</li>
+<li>APIs Python</li>
+<li>ArcGIS Runtime et API ArcObjects</li>
 <li>APIs web</li>
 <li>APIs mobiles</li>
 </ul></li>
 </ul>
 </section>
-<section id="api-python" class="level2">
-<h2>API Python</h2>
+<section id="apis-python" class="level2">
+<h2>APIs Python</h2>
 <ul>
-<li>2 besoins principaux
+<li>ArcGIS API for Python
 <ul>
-<li>Automatiser des traitements</li>
-<li>Ecrire des traitements personnalisés</li>
+<li>faire des carte, de l'analyse spatiale</li>
 </ul></li>
-<li>Développements intégrables sous forme de boîtes à outils</li>
-<li>Depuis la 10.2 : déployements sous forme d'extensions</li>
+<li>Arcpy
+<ul>
+<li>automatiser des géotraitements</li>
+<li>étendre les applications bureautiques</li>
+</ul></li>
 </ul>
 </section>
 <section id="lapi-arcobjects" class="level2">
@@ -652,7 +652,7 @@ Jeu de données raster</br>Mosaïque ou fichier de couche faisant référence à
 <ul>
 <li>ArcObjects = composants de base d'ArcGIS (<em>composants COM</em>)</li>
 <li>Création d'extensions ou d'applications autonomes</li>
-<li>Consomable via différents SDK</li>
+<li>Consomable via différents SDKs</li>
 </ul></li>
 </ul>
 <figure>
