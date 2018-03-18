@@ -4,7 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[francais]{babel} % prise en charge du francais
 \usepackage[table]{xcolor} % tableaux
-\usepackage{longtable} 
+\usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{graphicx} % images
 \usepackage{framed}
@@ -58,7 +58,7 @@
 	tabsize=2,
 	breaklines=true,
 	extendedchars=true,
-	xleftmargin=1cm, 
+	xleftmargin=1cm,
 	xrightmargin=1cm,
 	backgroundcolor=\color{lightgray},
 	literate=%
@@ -74,13 +74,14 @@
 		{ô}{{\^{o}}}1
 		{ç}{{\c{c}}}1
 }
+\newcommand{\passthrough}[1]{#1}
 
 % Commandes personnalisées
 \newcommand{\bslash}{\texttt{\symbol{92}}}
 
 \newcommand{\reponse}{\begin{tabbing}
 \hspace{2cm}\=\kill
-Réponse \> ............................................................................................ \\ 
+Réponse \> ............................................................................................ \\
  \> ............................................................................................
 \end{tabbing}
 }
@@ -114,7 +115,7 @@ Réponse \> ....................................................................
 }{%
   \endorigfigure
 }
-  
+
 % Patch : probleme de taille maximale des images
 \makeatletter
 \def\maxwidth{\ifdim \Gin@nat@width > 0.8\linewidth 0.8\linewidth \else \Gin@nat@width \fi}
@@ -154,20 +155,20 @@ Réponse \> ....................................................................
 		\begin{flushright}
 			% pour mettre une image en haut à droite
 		\end{flushright}
-		
+
 		\vspace{1cm}
-		
+
 		\begin{center}
 			\hrule
 				\vspace{0.5cm}
 				{\huge \bfseries $title$}
 				\vspace{0.7cm}
 			\hrule
-			
+
 			\vspace{3.5cm}
 			%\includegraphics[width=400px]{images/logo_python.png}
 			\vspace{5cm}
-		
+
 			\large \textit{$author$}\\
 			\small \textit{$date$}
 		\end{center}
