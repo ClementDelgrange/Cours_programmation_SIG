@@ -125,8 +125,41 @@ L'union de ces trois ensemble correspond à l'ensemble du plan.
 * pour une ligne (linestring ou linearring), l'intérieur équivaut à l'ensemble des points sur sa longueur, la frontière aux deux extrémités et l'extérieur au reste des points;
 * pour un polygone, l'intérieur est composé des points à l'intérieur de celui-ci, la frontière à une ou plusieurs lignes constituant le contour du polygone et l'extérieur au reste des points (y compris ceux à l'intérieur des trous).
 
+La syntaxe pour créer des géométries avec `shapely` est la suivante :
+```
+>>> from shapely.geometry import Point,
+>>> pt = Point([2, 3])
+>>> ls = LineString([[0, 0], [1, 1], [2, 0]])
+>>> poly = Polygon([[0, 0], [1, 1], [2, 0], [0, 0]])
+```
 
+Une fois la géométrie définie, il est ensuite possible d'accéder à certaines propriétés :
+```
+>>> ls.bounds  # rectangle englobant de la ligne
+(0.0, 0.0, 2.0, 1.0)
+>>> poly.area  # aire du polygone
+1.0
+>>> poly.exterior  # linearring constituant le contour extérieur
+<shapely.geometry.polygon.LinearRing at 0x107d3d6a0>
+```
 
+Les coordonnées d'un objet s'obtiennent à l'aide de la propriété `coords` qui renvoie un objet de type `CoordinateSequence`.
+Pour pouvoir afficher les coordonnées, on peut le transformer en liste :
+```
+>>> ls.coords  # CoordinateSequence de la linestring
+<shapely.coords.CoordinateSequence at 0x107d3d278>
+>>> list(ls.coords)
+[(0.0, 0.0), (1.0, 1.0), (2.0, 0.0)]
+>>> list(poly.exterior.coords)
+[(0.0, 0.0), (1.0, 1.0), (2.0, 0.0), (0.0, 0.0)]
+```
+
+Il est aussi possible d'effectuer des opérations géométriques :
+```
+buff = pt.buffer(2)  # retourne le polygone construit en effectuant un buffer de 2 autour du point
+```
+
+La documentation complète de la librairie se trouve à l'adresse suivante : <https://shapely.readthedocs.io>.
 
 ## Exercices
 1. Ecrire une fonction prennant une liste de point `shapely` et retournant deux éléments :
@@ -332,10 +365,11 @@ Par exemple avec `shapely`, les instructions suivantes retournent la représenta
 
 
 ## Exercices
-1. Le format gpx est un format d'échange de données GPS. Il est notament utilisé par les montres GPS de sport.
-En utilisant la librairie `gpxpy` (<https://github.com/tkrajina/gpxpy>) pour lire un fichier au format gpx, créer une fonction prenant en entrée un fichier gpx et retournant une géométrie shapely représentant la trace contenue dans le fichier.
-Ecrire ensuite une seconde fonction permettant d'écrire un fichier GeoJSON à partir de la géométrie shapely précédente.
+Le format gpx est un format d'échange de données GPS. Il est notament utilisé par les montres GPS de sport.
 
+En utilisant la librairie `gpxpy` (<https://github.com/tkrajina/gpxpy>) pour lire un fichier au format gpx, créer une fonction prenant en entrée un fichier gpx et retournant une géométrie shapely représentant la trace contenue dans le fichier.
+
+Ecrire ensuite une seconde fonction permettant d'écrire un fichier GeoJSON à partir de la géométrie shapely précédente.
 
 
 # Les projections
