@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="generator" content="pandoc">
+        <meta name="author" content="M1 Géomatique" />
+        <title>Programmation sous SIG</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal.js/css/reveal.css">
+		
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+        <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+
+
+	<!-- Styles ENSG-IGN -->
+	<link rel="stylesheet" href="css/ign.css">
+
+        <!-- Printing and PDF exports -->
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script type="text/javascript">
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'reveal.js/css/print/'+ (window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper') + '.css';
+            link.media = 'print';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script type="text/javascript" type="text/javascript" src="reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+        <!-- -H/- -include-in-header -->
+    </head>
+    <body>
+        <!-- -B/- -include-before-body -->
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>Programmation sous SIG</h1>
+                    <h3>M1 Géomatique</h3>
+                    <h4>03/2018</h4>
+                </section>
+
+                <!-- - -toc/- -table-of-contents -->
+
+            <!-- ne pas indenter le $body$ sinon les codes (highlight) vont l'être aussi !!! -->
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="organisation-du-cours" class="level2">
+<h2>Organisation du cours</h2>
+<ul>
+<li>8 séances de TD</li>
+<li>TD notés</li>
+</ul>
+</section>
+<section id="programme" class="level2">
+<h2>Programme</h2>
+<ol start="0" type="1">
+<li>Qu’est qu’un SIG ? Quels développements sous SIG ?</li>
+<li>Exploitation de données vecteur avec Python</li>
+<li>Exploitation de données raster avec Python</li>
+<li>Le système ArcGIS / ArcGIS pour le développeur</li>
+<li>Python et QGIS</li>
+</ol>
+</section>
+</section>
+<section id="généralités" class="level1">
+<h1>Généralités</h1>
+<section id="définition" class="level2">
+<h2>Définition</h2>
+<blockquote>
+<p>Un système d’information géographique (SIG) est un ensemble organisé de ressources pour collecter, stocker, traiter et diffuser de l’information géographique.</p>
+</blockquote>
+</section>
+<section id="composantes-dun-sig" class="level2">
+<h2>Composantes d’un SIG</h2>
+<ul>
+<li>Des aspects multiples
+<ul>
+<li><strong>composante technologique</strong> : logiciels, données, matériels</li>
+<li><strong>composante organisationnelle</strong> : personnes, savoirs-faire</li>
+</ul></li>
+<li>Des fonctionnalités communes : <em>règle des 5A</em></li>
+</ul>
+<figure>
+<img src="img/cours/fonctionnalites_sig.png" alt="Règle des 5A" /><figcaption>Règle des 5A</figcaption>
+</figure>
+</section>
+<section id="les-5a" class="level2">
+<h2>Les 5A</h2>
+<ul>
+<li><strong>Acquisition</strong> : collecter de la données sous forme numérique</li>
+<li><strong>Affichage</strong> : restituer graphiquement l’information</li>
+<li><strong>Abstraction</strong> : rendre compte de la modélisation de la réalité</li>
+<li><strong>Analyse</strong> : réaliser des études</li>
+<li><strong>Archivage</strong> : stocker les données dans un SGBD</li>
+</ul>
+</section>
+<section id="données-géographiques" class="level2">
+<h2>Données géographiques</h2>
+<ul>
+<li>Donnée géographique = associée à une information permettant de la localiser
+<ul>
+<li>localisation <em>explicite</em></li>
+<li>localisation <em>implicite</em></li>
+</ul></li>
+<li>Géocodage = transformer l’implicite en explicite</li>
+<li>Géoréférencement = assigner des coordonnées à un objet</li>
+</ul>
+</section>
+<section id="types-de-représentation" class="level2">
+<h2>Types de représentation</h2>
+<ul>
+<li>modèle raster =&gt; matrice de points</li>
+<li>modèle vecteur =&gt; coordonnées ou successions de coordonnées</li>
+</ul>
+</section>
+<section id="evolution-des-sig" class="level2">
+<h2>Evolution des SIG</h2>
+<ul>
+<li>1970 : SIG bureautique réservé aux spécialistes
+<ul>
+<li>“faire des cartes”</li>
+</ul></li>
+<li>1980-90 : diffusion dans d’autres corps de métiers
+<ul>
+<li>armée, cadastre…</li>
+</ul></li>
+<li>2000 : démocratisation de l’information géographiques
+<ul>
+<li>sites comme GoogleMap</li>
+</ul></li>
+<li>Aujourd’hui : grand public consommateur régulier d’information géographique
+<ul>
+<li>usages multiples (géolocalisation, calculs d’itinéraires…)</li>
+<li>plateformes variées (PC, smartphone…)</li>
+<li>nombreux utilisateurs</li>
+</ul></li>
+</ul>
+</section>
+<section id="aujourdhui" class="level2">
+<h2>Aujourd’hui</h2>
+<ul>
+<li>Nombreux utilisateurs
+<ul>
+<li>y compris grand plublic</li>
+</ul></li>
+<li>Besoins variés</li>
+</ul>
+<p>=&gt; importance des développements</p>
+</section>
+</section>
+<section id="le-serveur-sig" class="level1">
+<h1>Le serveur SIG</h1>
+<section id="section" class="level2">
+<h2></h2>
+<ul>
+<li>Fonctionnalités attendues d’un serveur SIG
+<ul>
+<li>Héberger des ressources SIG</li>
+<li>Publier des ressources SIG</li>
+<li>Permettre d’interagir avec les ressources SIG</li>
+</ul></li>
+</ul>
+</section>
+<section id="partage-de-ressources" class="level2">
+<h2>Partage de ressources</h2>
+<ul>
+<li>Ressources partagées sous forme de <strong>services</strong></li>
+</ul>
+<figure>
+<img src="img/cours/services_arcgis.png" alt="Partage de contenu SIG" /><figcaption>Partage de contenu SIG</figcaption>
+</figure>
+</section>
+<section id="des-architectures-de-serveur-sig" class="level2">
+<h2>Des architectures de serveur SIG</h2>
+<figure>
+<img src="img/cours/archi_serveur_sig-3.jpg" alt="Architecture 4-tiers" /><figcaption>Architecture 4-tiers</figcaption>
+</figure>
+</section>
+<section id="des-architectures-de-serveur-sig-1" class="level2">
+<h2>Des architectures de serveur SIG</h2>
+<figure>
+<img src="img/cours/archi_serveur_sig-1.jpg" alt="Architecture 2-tiers" /><figcaption>Architecture 2-tiers</figcaption>
+</figure>
+</section>
+</section>
+<section id="développements-sous-sig" class="level1">
+<h1>Développements sous SIG</h1>
+<section id="intérêt-des-développements" class="level2">
+<h2>Intérêt des développements</h2>
+<ul>
+<li>Répondre aux besoins non couverts en standard
+<ul>
+<li>faciliter des opérations</li>
+<li>automatiser des géotraitements</li>
+<li>simplifier des applications métier</li>
+<li><em>sortir le SIG du bureau</em></li>
+<li>…</li>
+</ul></li>
+</ul>
+</section>
+<section id="types-de-développements" class="level2">
+<h2>Types de développements</h2>
+<ul>
+<li>Développements bureautiques
+<ul>
+<li>personnalisation</li>
+<li>automatisation</li>
+<li>extensions</li>
+<li>création d’applications</li>
+</ul></li>
+<li>Développements de solutions web</li>
+<li>Développements de solutions mobiles</li>
+</ul>
+</section>
+<section id="quels-sig-pour-développer" class="level2">
+<h2>Quels SIG pour développer</h2>
+<ul>
+<li>Des interfaces de développement dans tous les SIG</li>
+</ul>
+<figure>
+<img src="img/cours/qgis_shp_viewer.png" alt="QGIS Shape Viewer" /><figcaption>QGIS Shape Viewer</figcaption>
+</figure>
+</section>
+<section id="quels-sig-pour-développer-1" class="level2">
+<h2>Quels SIG pour développer</h2>
+<figure>
+<img src="img/cours/cadsis.png" alt="CadSIS" /><figcaption>CadSIS</figcaption>
+</figure>
+</section>
+<section id="quels-sig-pour-développer-2" class="level2">
+<h2>Quels SIG pour développer</h2>
+<figure>
+<img src="img/cours/lizmap.jpg" alt="Portail cartographique LizMap" /><figcaption>Portail cartographique LizMap</figcaption>
+</figure>
+</section>
+<section id="quels-sig-pour-développer-3" class="level2">
+<h2>Quels SIG pour développer</h2>
+<figure>
+<img src="img/cours/geoconcept_mobile_app.png" alt="Application mobile Géoconcept" /><figcaption>Application mobile Géoconcept</figcaption>
+</figure>
+</section>
+</section>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="reveal.js/lib/js/head.min.js"></script>
+        <script type="text/javascript" src="reveal.js/js/reveal.js"></script>
+
+        <script type="text/javascript">
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                /* mettre une taille en pixel sinon l'overview ne fonctionne plus */
+                width: 1024,
+                height: 768,
+                controls: true,                                 // Display controls in the bottom right corner
+                progress: true,                                 // Display a presentation progress bar
+                history: true,                                  // Push each slide change to the browser history
+                center: false, // Vertical centering of slides
+                minScale: 0.2, // Bounds for smallestpossible content scale
+                maxScale: 1.5, // Bounds for largest possible content scale
+                slideNumber: true, // Display the page number of the current slide
+                autoSlide: 0, // Slide every duration milliseconds
+
+                theme: 'default', // available themes are in /css/theme
+                transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    /* ne pas activer highlight sinon la colorisation syntaxique ne fonctionne plus ? */
+                    // { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }//,
+                    // { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+        <!-- -A/- -include-after-body -->
+        <!-- comme le footer contient des variables, on le met dans le gabarit car
+             les variables ne sont pas interprétées via -A de pandoc -->
+        <div id="slide-ign-footer">
+            <div class="slide-ign-title">Programmation sous SIG</div>
+            <div class="slide-ign-date">03/2018</div>
+        </div>
+    </body>
+</html>
+

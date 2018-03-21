@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="generator" content="pandoc">
+        <meta name="author" content="M1 Géomatique" />
+        <title>Le système ArcGIS / ArcGIS pour le développeur</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal.js/css/reveal.css">
+		
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+        <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+
+
+	<!-- Styles ENSG-IGN -->
+	<link rel="stylesheet" href="css/ign.css">
+
+        <!-- Printing and PDF exports -->
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script type="text/javascript">
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'reveal.js/css/print/'+ (window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper') + '.css';
+            link.media = 'print';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script type="text/javascript" type="text/javascript" src="reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+        <!-- -H/- -include-in-header -->
+    </head>
+    <body>
+        <!-- -B/- -include-before-body -->
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>Le système ArcGIS / ArcGIS pour le développeur</h1>
+                    <h3>M1 Géomatique</h3>
+                    <h4>03/2018</h4>
+                </section>
+
+                <!-- - -toc/- -table-of-contents -->
+
+            <!-- ne pas indenter le $body$ sinon les codes (highlight) vont l'être aussi !!! -->
+<section id="le-système-arcgis" class="level1">
+<h1>Le système ArcGIS</h1>
+<section id="section" class="level2">
+<h2></h2>
+<figure>
+<img src="img/cours/arcgis.png" alt="Le système ArcGIS" /><figcaption>Le système ArcGIS</figcaption>
+</figure>
+</section>
+<section id="solutions-bureautiques" class="level2">
+<h2>Solutions bureautiques</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Le SIG bureautique historique</th>
+<th style="text-align: center;">Le viewer gratuit</th>
+<th style="text-align: center;">Les applications métier</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><em>ArcGIS for Desktop</em></td>
+<td style="text-align: center;"><em>ArcGIS Explorer</em></td>
+<td style="text-align: center;"><em>ArcGIS Engine</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><img src="img/cours/arcgis_desktop_pro.jpg" alt="ArcGIS for Desktop" /></td>
+<td style="text-align: center;"><img src="img/cours/arcgis_explorer.jpg" alt="ArcGIS Explorer" /></td>
+<td style="text-align: center;"><img src="img/cours/arcgis_engine.jpg" alt="ArcGIS Engine" /></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="arcgis-for-desktop" class="level2">
+<h2>ArcGIS for Desktop</h2>
+<ul>
+<li>5 applications</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><img src="img/cours/arcgis_for_desktop.png" alt="Suite ArcMap" /></th>
+<th style="text-align: center;"><img src="img/cours/arcgis_pro.jpg" alt="ArcGIS Pro" /></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><em>Suite ArcMap</em></td>
+<td style="text-align: center;"><em>ArcGIS Pro</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="arcgis-for-desktop-1" class="level2">
+<h2>ArcGIS for Desktop</h2>
+<ul>
+<li>Applications disponibles en 3 niveaux de fonctionnalités
+<ul>
+<li>Basic (<em>ArcView</em>) =&gt; faire des cartes, géotraitements simples</li>
+<li>Standard (<em>ArcEditor</em>) =&gt; outils d’édition, géodatabases avancées</li>
+<li>Advanced (<em>ArcInfo</em>) =&gt; géotraitements avancés (ex : topologie)</li>
+</ul></li>
+<li>+des extensions
+<ul>
+<li><em>Spatial Analyst</em>, <em>Data Interoperability</em>…</li>
+</ul></li>
+</ul>
+</section>
+<section id="un-peu-de-vocabulaire" class="level2">
+<h2>Un peu de vocabulaire</h2>
+<ul>
+<li>Du côté “données”</li>
+</ul>
+<p><img src="img/cours/constituants_workspace.png" /></p>
+</section>
+<section id="un-peu-de-vocabulaire-1" class="level2">
+<h2>Un peu de vocabulaire</h2>
+<ul>
+<li>Du côté <strong>document ArcMap</strong> (<em>map document</em> / mxd)</li>
+</ul>
+<p><img src="img/cours/constituants_mxd.png" /></p>
+</section>
+<section id="les-géodatabases" class="level2">
+<h2>Les géodatabases</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Caractéristique</th>
+<th style="text-align: left;">Géodatabase personnelle</th>
+<th style="text-align: left;">Géodatabase fichier</th>
+<th style="text-align: left;">Géodatabase entreprise</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Format</td>
+<td style="text-align: left;">Fichier Access</td>
+<td style="text-align: left;">Système de fichiers</td>
+<td style="text-align: left;">Système de fichiers</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Taille max</td>
+<td style="text-align: left;">2 Go</td>
+<td style="text-align: left;">Quasi illimitée</td>
+<td style="text-align: left;">Illimitée</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Utilisateurs en lecture</td>
+<td style="text-align: left;">&lt; 10</td>
+<td style="text-align: left;">&lt; 50</td>
+<td style="text-align: left;">Multi-utilisateur</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Utilisateurs en écriture</td>
+<td style="text-align: left;">1 seul</td>
+<td style="text-align: left;">1 par jeu de données</td>
+<td style="text-align: left;">Multi-utilisateur</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Nous n’utiliserons quasiment jamais de géodatabase personnelle.</p>
+</blockquote>
+</section>
+<section id="arcgis-entreprise" class="level2">
+<h2>ArcGIS Entreprise</h2>
+<ul>
+<li>ArcGIS Entreprise == ArcGIS for Server</li>
+<li>Serveur SIG complet
+<ul>
+<li><em>héberger</em></li>
+<li><em>partager</em></li>
+<li><em>créer des applications web SIG</em></li>
+</ul></li>
+</ul>
+</section>
+<section id="arcgis-entreprise-arcgis-for-server" class="level2">
+<h2>ArcGIS Entreprise (ArcGIS for Server)</h2>
+<ul>
+<li>3 niveaux de fonctionnalités
+<ul>
+<li>Basic</li>
+<li>Standard</li>
+<li>Advanced</li>
+</ul></li>
+<li>2 niveaux de capacité
+<ul>
+<li>Workgroup (10 utilisateurs, 10GB, 4 coeurs)</li>
+<li>Enterprise (<em>“illimité”</em>)</li>
+</ul></li>
+</ul>
+</section>
+<section id="les-services-arcgis" class="level2">
+<h2>Les services ArcGIS</h2>
+<table style="font-size: 12pt">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 44%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">
+<strong>Type de service</strong>
+</th>
+<th style="text-align: left;">
+<strong>Fonctionnalités disponibles</strong>
+</th>
+<th style="text-align: left;">
+<strong>Ressource SIG</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">
+Carte
+</td>
+<td style="text-align: left;">
+Cartographie</br>Accès aux données</br>Analyse de réseau</br>WCS, WFS, WMS, KML
+</td>
+<td style="text-align: left;">
+Document ArcMap (.mxd)</br>Définition de service de carte (.msd)
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">
+Géocodage
+</td>
+<td style="text-align: left;">
+Géocodage
+</td>
+<td style="text-align: left;">
+Localisateur d’adresses (.loc, .mxs)
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">
+Géodonnées
+</td>
+<td style="text-align: left;">
+Géodonnées</br>Accès aux données
+</td>
+<td style="text-align: left;">
+Géodatabase fichier</br>Fichier de connexion à une base de données (.sde)
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">
+Géotraitement
+</td>
+<td style="text-align: left;">
+Géotraitement
+</td>
+<td style="text-align: left;">
+Boite à outils
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">
+Globe
+</td>
+<td style="text-align: left;">
+Globe
+</td>
+<td style="text-align: left;">
+Document ArcGlobe (.3dd)
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">
+Imagerie
+</td>
+<td style="text-align: left;">
+Traitement d’image</br>WCS, WMS
+</td>
+<td style="text-align: left;">
+Jeu de données raster</br>Mosaïque ou fichier de couche faisant référence à un jeu de données raster ou mosaïque
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="utiliser-des-ressources-arcgis" class="level2">
+<h2>Utiliser des ressources ArcGIS</h2>
+<ul>
+<li>Services exposés via 4 protocoles
+<ul>
+<li>REST
+<ul>
+<li><code>http://server_name:6080/arcgis/rest/services/service_name</code></li>
+</ul></li>
+<li>SOAP</li>
+<li>KML</li>
+<li>OGC</li>
+</ul></li>
+</ul>
+</section>
+<section id="options-de-déploiement" class="level2">
+<h2>Options de déploiement</h2>
+<ul>
+<li>Client léger
+<ul>
+<li>Application web <em>clé en main</em></li>
+<li>Application mobile</li>
+<li>…</li>
+</ul></li>
+<li>Client lourd compatibles
+<ul>
+<li>ArcMap, ArcGIS Pro</li>
+</ul></li>
+<li>Développement d’un client riche avec les APIs web</li>
+</ul>
+</section>
+<section id="architecture-arcgis-for-server" class="level2">
+<h2>Architecture ArcGIS for Server</h2>
+<figure>
+<img src="img/cours/AcrGIS_Server_architecture.png" alt="Architecture ArcGIS for Server" /><figcaption>Architecture ArcGIS for Server</figcaption>
+</figure>
+</section>
+<section id="portal-for-arcgis" class="level2">
+<h2>Portal for ArcGIS</h2>
+<ul>
+<li>Intermédiaire entre le serveur et les clients
+<ul>
+<li>Administrer</li>
+<li>Partager</li>
+<li>Créer des cartes</li>
+<li>Créer des applications</li>
+</ul></li>
+</ul>
+</section>
+<section id="portal-for-arcgis-1" class="level2">
+<h2>Portal for ArcGIS</h2>
+<figure>
+<img src="img/cours/portal_for_arcgis-2.png" alt="Architecture Portal for ArcGIS" /><figcaption>Architecture Portal for ArcGIS</figcaption>
+</figure>
+</section>
+<section id="arcgis-online" class="level2">
+<h2>ArcGIS Online</h2>
+<ul>
+<li><a href="http://www.arcgis.com" class="uri">http://www.arcgis.com</a></li>
+<li>Un SIG dans le cloud
+<ul>
+<li>gestion collaborative de cartes et services géographiques</li>
+<li>serveur SIG sur le web</li>
+</ul></li>
+</ul>
+</section>
+<section id="arcgis-online-1" class="level2">
+<h2>ArcGIS Online</h2>
+<figure>
+<img src="img/cours/arcgis_online.png" alt="Carte ArcGIS Online" /><figcaption>Carte ArcGIS Online</figcaption>
+</figure>
+</section>
+<section id="les-solutions-mobiles" class="level2">
+<h2>Les solutions mobiles</h2>
+<ul>
+<li>Gammes d’outils du professionnel au grand public
+<ul>
+<li>ArcPad</li>
+<li>ArcGIS Mobile</li>
+<li>ArcGIS for Smartphones</li>
+<li>Collector for ArcGIS</li>
+</ul></li>
+</ul>
+</section>
+<section id="les-générateurs-dapplications" class="level2">
+<h2>Les générateurs d’applications</h2>
+<figure>
+<img src="img/cours/AppStudio_for_ArcGIS-2.png" alt="AppStudio for ArcGIS" /><figcaption>AppStudio for ArcGIS</figcaption>
+</figure>
+<figure>
+<img src="img/cours/web_appbuilder_process.png" alt="Web AppBuilder" /><figcaption>Web AppBuilder</figcaption>
+</figure>
+</section>
+<section id="des-applications-clés-en-main" class="level2">
+<h2>Des applications clés en main</h2>
+<ul>
+<li></li>
+</ul>
+</section>
+<section id="coût-des-licences" class="level2">
+<h2>Coût des licences</h2>
+<ul>
+<li>ArcMap :
+<ul>
+<li>Advanced : 7000€</li>
+<li>Standard : 5000€</li>
+<li>Basic : 1000€</li>
+</ul></li>
+<li>ArcGIS Entreprise (Workgroup) :
+<ul>
+<li>Basic : 1000€</li>
+</ul></li>
+<li>ArcGIS Entreprise (Entreprise) :
+<ul>
+<li>Advanced : 20000-30000€</li>
+</ul></li>
+<li>ArcGIS Online :
+<ul>
+<li>10 jetons = 1€</li>
+<li>Feature Service Storage : 10MB = 2,4 jetons</li>
+<li>Tile and data storage : 1GB = 1,2 jetons</li>
+</ul></li>
+<li>plus la maintenance…</li>
+</ul>
+</section>
+</section>
+<section id="arcgis-pour-le-développeur" class="level1">
+<h1>ArcGIS pour le développeur</h1>
+<section id="familles-dapis-et-sdks" class="level2">
+<h2>Familles d’APIs et SDKs</h2>
+<ul>
+<li>4 grandes familles
+<ul>
+<li>APIs Python</li>
+<li>ArcGIS Runtime et API ArcObjects</li>
+<li>APIs web</li>
+<li>APIs mobiles</li>
+</ul></li>
+</ul>
+</section>
+<section id="apis-python" class="level2">
+<h2>APIs Python</h2>
+<ul>
+<li>ArcGIS API for Python
+<ul>
+<li>faire des carte, de l’analyse spatiale</li>
+</ul></li>
+<li>Arcpy
+<ul>
+<li>automatiser des géotraitements</li>
+<li>étendre les applications bureautiques</li>
+</ul></li>
+</ul>
+</section>
+<section id="lapi-arcobjects" class="level2">
+<h2>L’API ArcObjects</h2>
+<ul>
+<li>API fondamentale d’ArcGIS
+<ul>
+<li>ArcObjects = composants de base d’ArcGIS (<em>composants COM</em>)</li>
+<li>Création d’extensions ou d’applications autonomes</li>
+<li>Consomable via différents SDKs</li>
+</ul></li>
+</ul>
+<figure>
+<img src="img/cours/api_arcobjects.png" alt="Diagramme ArcObjects" /><figcaption>Diagramme ArcObjects</figcaption>
+</figure>
+</section>
+<section id="arcgis-runtime" class="level2">
+<h2>ArcGIS Runtime</h2>
+<ul>
+<li>Remplaçant des ArcObjects</li>
+<li>Indépendant des composants COM</li>
+<li>Noyau d’exécution et différentes API/SDK pour développer</li>
+</ul>
+<figure>
+<img src="img/cours/arcgis_runtime-2.png" alt="Le noyau Runtime" /><figcaption>Le noyau Runtime</figcaption>
+</figure>
+</section>
+<section id="arcgis-runtime-1" class="level2">
+<h2>ArcGIS Runtime</h2>
+<figure>
+<img src="img/cours/arcgis_runtime-1.png" alt="Possibilités d’applications natives ArcGIS Runtime" /><figcaption>Possibilités d’applications natives ArcGIS Runtime</figcaption>
+</figure>
+</section>
+<section id="apis-web" class="level2">
+<h2>APIs web</h2>
+<ul>
+<li>Générateurs d’applications (Web AppBuilder)</li>
+<li>Templates d’applications (Flex et Silverlight)</li>
+<li>3 API web
+<ul>
+<li>ArcGIS for Javascript</li>
+<li>ArcGIS for Flex</li>
+<li>ArcGIS for Silverlight</li>
+</ul></li>
+<li><em>Toutes basées sur l’API REST d’ArcGIS for Server</em></li>
+</ul>
+</section>
+<section id="apis-web-1" class="level2">
+<h2>APIs web</h2>
+<figure>
+<img src="img/cours/web_appbuilder.png" alt="Web AppBuilder" /><figcaption>Web AppBuilder</figcaption>
+</figure>
+</section>
+<section id="apis-web-2" class="level2">
+<h2>APIs web</h2>
+<figure>
+<img src="img/cours/api_javascript.png" alt="API Javascript" /><figcaption>API Javascript</figcaption>
+</figure>
+</section>
+</section>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="reveal.js/lib/js/head.min.js"></script>
+        <script type="text/javascript" src="reveal.js/js/reveal.js"></script>
+
+        <script type="text/javascript">
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                /* mettre une taille en pixel sinon l'overview ne fonctionne plus */
+                width: 1024,
+                height: 768,
+                controls: true,                                 // Display controls in the bottom right corner
+                progress: true,                                 // Display a presentation progress bar
+                history: true,                                  // Push each slide change to the browser history
+                center: false, // Vertical centering of slides
+                minScale: 0.2, // Bounds for smallestpossible content scale
+                maxScale: 1.5, // Bounds for largest possible content scale
+                slideNumber: true, // Display the page number of the current slide
+                autoSlide: 0, // Slide every duration milliseconds
+
+                theme: 'default', // available themes are in /css/theme
+                transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    /* ne pas activer highlight sinon la colorisation syntaxique ne fonctionne plus ? */
+                    // { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }//,
+                    // { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+        <!-- -A/- -include-after-body -->
+        <!-- comme le footer contient des variables, on le met dans le gabarit car
+             les variables ne sont pas interprétées via -A de pandoc -->
+        <div id="slide-ign-footer">
+            <div class="slide-ign-title">Le système ArcGIS / ArcGIS pour le développeur</div>
+            <div class="slide-ign-date">03/2018</div>
+        </div>
+    </body>
+</html>
+

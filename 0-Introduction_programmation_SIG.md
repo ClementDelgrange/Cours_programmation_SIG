@@ -38,7 +38,7 @@ Chacune de ces fonctionnalités sera plus ou moins développée en fonction de l
 
 Les **données** sont dites **géographiques** lorsqu'elles sont associées à une information permettant de les localiser sur le terrain de manière explicite (coordonnées) ou implicite (adresse, nom de localité, etc.).
 Le *géocodage* est le processus permettant de transformer les références géographiques implicites en références explicites.
-Nous parlerons en revanche de *géoréférencement* pour décrire le processus permettant d'assigner des coordonnées à un objet qui en est dépourvu initialement. 
+Nous parlerons en revanche de *géoréférencement* pour décrire le processus permettant d'assigner des coordonnées à un objet qui en est dépourvu initialement.
 
 On distingue par ailleurs deux types de représentation des données :
 
@@ -52,7 +52,7 @@ Enfin, les SIG mettent en oeuvre des ressources humaines variées (géomaticien,
 La mise en oeuvre et l'exploitation d'un SIG ne peut s'envisager sans le respect de certaines règles et procédures propres à chaque organisation.
 
 \begin{note}
-**Un bref historique des SIG**
+\textbf[Un bref historique des SIG}
 La première application reconnue de l'analyse spatiale est datée de 1854 lorsque le docteur John Snow mène une étude sur la propagation d'une épidémie de choléra dans un quartier de Londres.
 
 Dans les années 1960 ensuite, alors que les cartes de l'époque étaient inadaptées, l'idée d'utiliser l'outil informatique pour déterminer les meilleurs lieux de plantation forestières en Afrique a fait sont apparition.
@@ -60,10 +60,12 @@ Dans les années 1960 ensuite, alors que les cartes de l'époque étaient inadap
 Puis à partir des années 1970, les progrès importants des technologies informatiques ont contribué à accroître le développement des SIG.
 4 grandes périodes (Maguire et al. 1991) :
 
-* 1950 -1970 : premières applications de l'informatique à la cartographie;
-* 1970- 1980 : les outils SIG font leur entrée dans les organismes étatiques (armée, cadastre, services topographiques, ...) ;
-* 1980 -1990 : développement de plusieurs applications informatiques dédiées aux SIG et mise en réseaux des outils SIG;
-* fin des années 1990 à nos jours : développement du webmapping avec plusieurs services cartographiques offerts sur internet et apparition de plusieurs outils libres ainsi que l'usage des technologies GPS.
+\begin{itemize}
+\item 1950 -1970 : premières applications de l'informatique à la cartographie;
+\item 1970- 1980 : les outils SIG font leur entrée dans les organismes étatiques (armée, cadastre, services topographiques, ...) ;
+\item 1980 -1990 : développement de plusieurs applications informatiques dédiées aux SIG et mise en réseaux des outils SIG;
+\item fin des années 1990 à nos jours : développement du webmapping avec plusieurs services cartographiques offerts sur internet et apparition de plusieurs outils libres ainsi que l'usage des technologies GPS.
+\end{itemize}
 \end{note}
 
 
@@ -86,7 +88,7 @@ La consommation d'informations géographiques par des utilisateurs séparés imp
 Les solutions **serveurs SIG** répondent à cette problématique de partage des données.
 
 \begin{note}
-La technologie **serveur SIG** est complémentaire de la technologie **bureautique**, en ce sens qu'elle permet de diffuser ce qui a été créé avec les outils bureautiques : les données géographiques, les cartes, les modèles d'analyse et de traitement.
+La technologie serveur SIG est complémentaire de la technologie bureautique, en ce sens qu'elle permet de diffuser ce qui a été créé avec les outils bureautiques : les données géographiques, les cartes, les modèles d'analyse et de traitement.
 \end{note}
 
 Un serveur SIG répond à trois problématiques :
@@ -106,11 +108,11 @@ Il existe une grande variété de logiciels serveurs et clients répondant à de
 Cette organisation en couche présente l'avantage de pouvoir spécialiser chacune d'entre elles dans une tâche précise et de leur allouer des ressources adaptées en fonction de ces opérations à accomplir.
 
 \begin{note}
-**Clients légers, lourds, riches**
+\textbf{Clients légers, lourds, riches}
 
-Dans l'organisation client / serveur originel, le client envoie une requête au serveur qui effectue tous les traitements et retourne un résultat mis en forme. On parle de *client léger*.
-A l'opposé, un *client lourd* support l'ensemble des traitements. Le serveur n'est, dans ce type de couple client-serveur, sollicité que pour mettre à disposition du client les données demandées.
-Dans une architecture de type *client riche*, on tente de proposer un compromis pour optimiser les échanges avec le serveur. Une partie des traitements sont effectuées sur le serveur et un partie est effectuée par le client.
+Dans l'organisation client / serveur originel, le client envoie une requête au serveur qui effectue tous les traitements et retourne un résultat mis en forme. On parle de \textit{client léger}.
+A l'opposé, un \textit{client lourd} support l'ensemble des traitements. Le serveur n'est, dans ce type de couple client-serveur, sollicité que pour mettre à disposition du client les données demandées.
+Dans une architecture de type \textit{client riche}, on tente de proposer un compromis pour optimiser les échanges avec le serveur. Une partie des traitements sont effectuées sur le serveur et un partie est effectuée par le client.
 \end{note}
 
 
@@ -145,11 +147,6 @@ La plupart des SIG proposent une interface de développement permettant de répo
 Cette partie se propose de classifier les différents types de développements possibles sous SIG.
 
 ## Développements bureautiques
-proposition...
-
-...
-
-...
 
 ### Personnalisation
 Face à des logiciels SIG souvent riches en fonctionnalités au point de les rendre parfois complexes, la plus basique des demandes des utilisateurs est de pouvoir manipuler une interface adaptée à leur usage.
