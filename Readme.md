@@ -38,5 +38,5 @@ pandoc -s -N --listings --template=template/template.latex -o 0-Introduction_pro
 
 * Les présentations :
 ```
-pandoc -s -t html5 --template=template/ign-ensg-revealjs.html --section-divs -o 0-Introduction_programmation_SIG-pres.html 0-Introduction_programmation_SIG-pres.md
+pandoc -s -t html5 --template=template/ign-ensg-revealjs.html --section-divs -o 0-Pres-Introduction_programmation_SIG.html 0-Pers-Introduction_programmation_SIG.md
 ```
