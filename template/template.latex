@@ -150,13 +150,13 @@ Réponse \> ....................................................................
 \begin{titlepage}
 	\begin{sffamily}
 		\begin{flushleft}
-			\includegraphics{img/logos/ign-logo-ensg.jpg}\\[1.5cm]
+			% \includegraphics{img/logos/ign-logo-ensg.jpg}\\[1.5cm]
 		\end{flushleft}
 		\begin{flushright}
 			% pour mettre une image en haut à droite
 		\end{flushright}
 
-		\vspace{1cm}
+		\vspace{4cm}
 
 		\begin{center}
 			\hrule

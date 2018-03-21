@@ -73,10 +73,6 @@
     background-color: white;
 }
 .reveal .slides > section:first-child {
-	background-image: url("../img/logos/ign-logo-ensg.jpg"), url("../img/logos/ign-logo-ign.png");
-    background-position: left 15px, right top;
-    background-size: 284px 177px , 182px 196px;
-	background-repeat: no-repeat;
 }
 .reveal .slides > section:first-child h1 {
     padding-top: 330px;
@@ -110,7 +106,7 @@
     background-color: #737A7E;
     color: white;
     height: 60%;
-} 
+}
 .reveal .slides > section > section.level2 {
     text-align: left;
     padding-top: 10px;
@@ -151,4 +147,3 @@
     left: 70%;
     bottom: 0%;
 }
-
