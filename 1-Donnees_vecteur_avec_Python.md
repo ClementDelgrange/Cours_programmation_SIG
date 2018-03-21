@@ -7,11 +7,8 @@
 
 * Connaître les différentes primitives géométriques
 * Manipuler des objets géolocalisés et effectuer quelques opérations spatiales
-* Visualiser les données géolocalisées, créer des cartes statiques et intéractives
 * Ouvrir des fichiers géographiques de différents formats, dans différentes projections
-
-
-* Effectuer des requêtes spatiales
+* Visualiser les données géolocalisées, créer des cartes statiques et intéractives
 
 
 
@@ -36,6 +33,7 @@ Nous pouvons évoquer plusieurs raisons à cela:
 * il est assez facilement intégrable à d'autres langages (`C`, `C++`);
 * de nombreuses libraires de calculs numériques existent (`numpy`, `scipy`, `pandas`, etc.);
 * les libraires fondamentales de la géomatique (`PROJ.4`, `GDAL`, etc.) bénéficient de bindings Python.
+
 
 
 # Représentation de l'information géographique
@@ -90,6 +88,7 @@ Basée sur la Java Topology Suite (JTS)[^2], cette librairies est notament utili
 
 Alors que l'OGC édite des normes favorisant l'interopérabilité et les échanges de données, l'OSGeo soutient le développement d'outils open source mettant en oeuvre ces normes.
 \end{note}
+
 
 ## validité des géométries
 Au delà d'une simple hiérarchie entre les objets géométriques, la norme *Simple Feature Access* définie également des règles de validité pour chacune des géométries.
@@ -161,6 +160,7 @@ buff = pt.buffer(2)  # retourne le polygone construit en effectuant un buffer de
 
 La documentation complète de la librairie se trouve à l'adresse suivante : <https://shapely.readthedocs.io>.
 
+
 ## Exercices
 1. Ecrire une fonction prennant une liste de point `shapely` et retournant deux éléments :
   * un boolean indiquant si le polygon `shapely` dont le contour extérieur est contitué de la suite de points est valide;
@@ -186,6 +186,7 @@ Vous pouvez consulter la documentation de la fonction `plot` pour avoir plus d'o
 3. Un ficheir csv est un fichier texte. Vous pouvez le lire comme un fichier texte classique ou utiliser une librairie adaptée.
 
 
+
 # Les formats d'échange
 Depuis une trentaine d'années, les SIG se sont implantés dans de nombreux domaines.
 Diverses solutions commerciales se sont développées permettant à l'utilisateur un vaste choix parmi ces solutions.
@@ -195,7 +196,7 @@ Lorsque les utilisateurs cherchent à faire communiquer leurs applications, ils 
 
 Dans ce contexte nous distinguerons les formats dits *ouverts* (pensons aux shapefiles d'Esri) de ceux dits *fermés* (les géodatabases d'Esri).
 Par ouverts/fermés nous entendons que les spécifications de ces formats sont respectivement publiques ou pas.
-Naturellement des formats ouverts permettent l'interopérabilité des données tandis que les formats fermés la limite.
+Naturellement des formats ouverts permettent l'interopérabilité des données tandis que les formats fermés la limite en imporsant l'utilisation d'un logiciel particulier.
 
 La problématique sera identique pour le développeur : un format ouvert sera manipulable au travers de différentes librairies.
 Les formats fermés ne le seront généralement que via les librairies de l'éditeur de SIG propriétaire du format.
@@ -364,41 +365,204 @@ Par exemple avec `shapely`, les instructions suivantes retournent la représenta
 ```
 
 
-## Exercices
-Le format gpx est un format d'échange de données GPS. Il est notament utilisé par les montres GPS de sport.
+## Les fichiers de formes
+Le format shapefile, ou *fichier de formes*, a initialement été développé par Esri pour ses logiciels SIG.
+Aujourd'hui les spécifications de ce format ont été rendues publiques, ce qui lui a permis petit à petit de s'imposer comme un standard.
+Il est lisible dans la majorité des logiciels du marché dela géométique : ArcGIS, QGIS, Autodesk Map, Grass, GvGIS, MapServer, etc.
 
-En utilisant la librairie `gpxpy` (<https://github.com/tkrajina/gpxpy>) pour lire un fichier au format gpx, créer une fonction prenant en entrée un fichier gpx et retournant une géométrie shapely représentant la trace contenue dans le fichier.
+Un fichier de forme est toujours composé de plusieurs fichiers portant nécessairement le même nom :
+
+* le `.shp` contenant les géométries;
+* le `.dbf` stockant les informations sémantiques relatives aux géométries;
+* le `.shx` qui stocke un index des géométries.
+
+D'autres fichiers annexes peuvent être présents. Citons notamment :
+
+* un index spatial (`.sbx`);
+* la définition du système de coordonnées utilisé (`.prj`).
+
+Pour ouvrir un fichier de formes en Python, nous pouvons utiliser la librairie `fiona` (<https://toblerity.org/fiona/>).
+
+La syntaxe pour ouvrir un fichier est semblable à celle d'ouverture d'un fichier "classique", à ceci près que l'itération sur le contenu du fichier ouvert retourne la `__geo_interface__` des géométries du shapefile :
+```
+>>> import fiona
+>>> with fiona.open('test.shp', 'r') as shp_file:
+...     for geom in shp_file:
+...         print(geom)
+...
+{'coordinates': (0.0, 0.0), 'type': 'Point'}
+{'coordinates': (2.0, 0.4), 'type': 'Point'}
+{'coordinates': (4.0, 2.0), 'type': 'Point'}
+```
+
+
+
+## Exercices
+Le format gpx est un format d'échange de données GPS, notament utilisé par les montres GPS de sport[^4].
+Il est basé sur le langage de balise XML.
+
+[^4]: Norme GPX : <http://www.topografix.com/GPX/1/1/>
+
+Créer une fonction prenant en entrée un fichier gpx et retournant une géométrie shapely représentant la trace contenue dans le fichier.
 
 Ecrire ensuite une seconde fonction permettant d'écrire un fichier GeoJSON à partir de la géométrie shapely précédente.
 
+### Indices
+Pour lire le fichier gpx, plusieurs possibilités sont envisageables :
+
+* lire le fichier comme un ficher texte et analyser son contenu : solution longue, fastidieuse et source d'erreurs;
+* utiliser une librairie de lecture de fichiers XML : envisageable avec un peu de connaissance sur le contenu du gpx;
+* utiliser une librairie dédiée à la lecture de fichier gpx, comme par exemple `gpxpy` (<https://github.com/tkrajina/gpxpy>) qui permet de parser un fichier gpx (`gpxpy.parse(gpx_file)`). Regarder l'exemple du dépôt github du projet pour comprendre comment exploiter le résultat.
+
+
 
 # Les projections
-PROJ.4 et pyproj (simple et efficace, mais uniquement des points)
+Une information géographique géolocalisée est définie à l'aide de coordonnées exprimées dans un système de coordonnées.
+Nous avons vu comment manipuler des géométries avec `shapely` et nous allons donc maintenant aborder quelques aspects liés aux systèmes de coordonnées.
 
-osr : plus compliqué à prendre en main mais plus abouti aussi
+Assez fréquement les différentes couches que nous allons manipuler dans un SIG ne seront pas définies dans le même système de coordonées.
+Aussi pour pouvoir les mettre en relation, nous allons devoir les reprojeter.
+
+La librairie fondamentale pour effectuer des reprojections et PROJ.4.
+Ecrite en C, elle offre une API permettant de convertir des coordonnées de n'importe quel système de coordonnées vers n'importe quel autre.
+Un binding Pyhton de cette librairie existe heureusement : `pyproj`.
+
+La projection d'une couche dans un SIG est souvent définie à l'aide d'un code EPSG.
+
+\begin{note}
+L'European petroleum survey group (EPSG) est un groupe qui a défini une liste de systèmes de coordonnées et a associé à chacun d'eux un code unique. Aujourd'hui les codes de l'EPSG sont utilisés dans les standards de l'OGC. Voir <www.epsg.io> pour retrouver les informations sur un projection.
+\end{note}
+
+D'autres formalismes existent pour réprésenter les systèmes de coordonnées.
+Nous rencontrerons par exemple fréquemment des chaînes PROJ.4 ou d'un WKT normalisé par l'OGC.
+
+Exemples de PROJ.4 et de WKT pour la projection NAD83 / Virginia North (EPSG:2283) :
+```
+PROJ.4 : '+proj=lcc +lat_1=39.2 +lat_2=38.03333333333333 +lat_0=37.66666666666666 +lon_0=-78.5 +x_0=3500000.0001016 +y_0=0 +ellps=WGS84 +units=m +no_defs '
+
+OGC WKT :
+PROJCS["unnamed",
+    GEOGCS["WGS 84",
+        DATUM["unknown",
+            SPHEROID["WGS84",6378137,298.257223563]],
+        PRIMEM["Greenwich",0],
+        UNIT["degree",0.0174532925199433]],
+    PROJECTION["Lambert_Conformal_Conic_2SP"],
+    PARAMETER["standard_parallel_1",39.2],
+    PARAMETER["standard_parallel_2",38.03333333333333],
+    PARAMETER["latitude_of_origin",37.66666666666666],
+    PARAMETER["central_meridian",-78.5],
+    PARAMETER["false_easting",3500000.0001016],
+    PARAMETER["false_northing",0]]
+```
+
+
+La syntaxe pour transformer la coordonnées (49; 2,5) exprimée en WGS 84 vers du Lambert 93 à l'aide de `pyproj` est :
+```
+>>> import pyproj
+>>> p1 = pyproj.Proj(init="EPSG:4326")  # WGS 84
+>>> p2 = pyproj.Proj(init="EPSG:2154")  # Lambert 93
+>>> pyproj.transform(p1, p2, 49, 2.5)
+(6966447.11991473, 3144085.7531701634)
+```
+
+La limite de cette librairie est bien entendu qu'elle ne permet de transformer que des points (ou listes de points) et pas des géométries directements.
+Pour des reprojections de plus haut niveau, nous pouvons nous tourner vers le module `osr` de la librairie `osgeo`.
+Moins intuitive dans son utilisation, cette librairie permet des reprojections de jeux de données complets.
+
+Vous pouvez retrouver quelques exemples d'utilisation du module `osgeo.osr` ici : <https://pcjericks.github.io/py-gdalogr-cookbook/projection.html>.
 
 
 ## Exercices
-1. calculer l'aire dans une projection donnée d'un polygone en wgs84
+1. Ecrire une fonction permettant de transformer n'importe quelle type de géométrie au format GeoJSON d'un système de coordonnées vers un autre.
+2. Considérons un polygone dont la représentation WKT est :
+`POLYGON ((25.80954551696777 66.55355747998166, 25.85220336914062 66.57588240547837, 25.85108757019043 66.57622360944596, 25.808687210083 66.55386483992372, 25.80954551696777 66.55355747998166))`.
+Les coordonnées de ce polygone sont exprimées en latitude / longitude (WGS84).
+Calculer l'aire d'un polygone en pseudo mercator et en UTM zone 35N.
+Quel est le bon résultat?
 
 
-
-
-# Lecture de shapefiles
-`fiona`
-
-
-
-# Exercice
-enveloppe autour de points
+### Indices
+1. Effectuer un type sur le type de la géométrie décrite dans le GeoJSON et en fonction du resultat appliquer un traitement différent en utilisant `pyproj`.
+2. Utiliser la fonction précédente pour transformer le polygon.
+Le module `shapely` permet de créer une géométrie directement à partir d'un WKT.
 
 
 
 # Créer des cartes
+Nous avons vus précédement comment manipuler des géométries, effectuer des opérations spatiales, gérer les systèmes de coordonnées.
+La problématique ce cette partie tient à la représentation des données produites.
+
+## Cartes statiques
+Dans un premier temps, nous verrons comment réaliser une carte statique.
+Par carte statique, nous entendons une care que l'utilisateur ne peut pas manipuler (zoomer, déplacer).
+Il s'agit classiquement d'une simple image représentant les données géographiques traitées.
+
+Les solutions en Python pour générer des cartes sont nombreuses : `mapnik`, `basemap`, `cartopy`, `descartes`, `bokeh`, etc.
+Nous nous attarderons sur la librairie `descartes` (<https://bitbucket.org/sgillies/descartes/>), développée par... Sean Gillies, qui permet d'insérer des cartes dans des graphiques `matplotlib`.
 
 
+
+
+Nous commencerons par dessiner des rectangles dans un graphique `matplotlib`.
+La technique sera similaire pour ajouter une carte générée par la librairie `descartes`.
+
+Les fonctions suivantes nous serons utiles :
+
+* `matplotlib.figure()` : élément de plus haut niveau permettant de contenir les éléments d'un graphique;
+* `matplotlib.figure().gca()` pour *get current axes* récupère les axes d'une figure matplotlib ou en crée si besoin;
+* `add_patch()` pour ajouter des éléments en utilisant les axes du graphique .
+
+L'exemple ci-dessous dessine deux rectangles dans un graphique :
+```
+import matplotlib.pyplot as plt
+
+fig = plt.figure()
+fig.gca().add_patch(plt.Rectangle((0, 1), 1, 1))
+fig.gca().add_patch(plt.Rectangle((3, 1), 1, 1))
+fig.gca().autoscale()
+plt.axis("equal")
+plt.show()
+```
+
+La méthode `autoscale()` est nécessaire pour centrer le graphique sur les rectangles ajoutés, tandis que
+`plt.axis("equal")` permet d'avoir une même échelle selon les deux axes.
+
+Pour ajouter une carte à un graphique la méthode sera strictement identique.
+L'objet `PolygonPatch` est utilisé pour représenter un polygone défini en GeoJSON.
+
+En vous aidant des exemples du dépôt du projet, représentez les arrondissements de Paris.
+
+
+## Cartes interactives
+Pour pouvoir naviguer dans la carte générée, nous allons faire appel à d'autres outils.
+La librairie `Folium` (<https://folium.readthedocs.io/en/latest/>) qui permet de générer une page HTML incluant une carte Leaflet.
+
+La création de la page HTML s'effectue simplement de la manière suivante :
+```
+carte = folium.Map(location=[48, 3], zoom_start=8)
+carte.save("ma_carte.html")
+```
+
+On ajoute ensuite des éléments dans la carte :
+
+* des points : `folium.Marker([lat, lon]).add_to(carte)`;
+* des linestring : `folium.PolyLine(polyline, color='red', weight=5).add_to(carte)`;
+* des polygones;
+* des GeoJSON directement;
+* etc.
+
+
+# Exercice final
+Consignes :
+
+* Les données (https://s3.amazonaws.com/redbird-recruitment/test_data-EPSG-27561.csv) représentent des ensembles de points.
+* Pour chacun de ces groupes, il s’agit d’afficher ces points ainsi qu’un polygone englobant tout en respectant un buffer qui sera donné en paramètre (de 1 mètre à 3 mètres).
+* Ces données seront à afficher en combinaison de données satellites (ex : https://www.openstreetmap.org)
+* Le code produit doit afficher une carte interactive.
 
 
 # Bibliographie
 
 * <https://www.packtpub.com/application-development/python-geospatial-development-second-edition>
+* <http://www.portailsig.org/content/python-les-bases-de-donnees-geospatiales-1-traitement-classique-principes-et-problemes>
