@@ -1,6 +1,6 @@
 % Programmation sous SIG - ArcPy
-% DCAIG
-% 2017
+%
+% 2018
 
 
 # Manipulation des outils de géotraitement #
@@ -39,7 +39,7 @@ Par exemple, pour l'outil `Buffer` de la boîte à outils d'analyse, la document
 Buffer_analysis(in_features, out_feature_class, buffer_distance_or_field, {line_side}, {line_end_type}, {dissolve_option}, {dissolve_field}, {method})
 ```
 
-Pour calculer le buffer d'un réseau routier (couche *Routes*) en fonction de l'attribut `LARGEUR`, des deux côtés des linéaires et sans assembler les surfaces résultantes se chevauchant, nous pourrons ainsi écrire : 
+Pour calculer le buffer d'un réseau routier (couche *Routes*) en fonction de l'attribut `LARGEUR`, des deux côtés des linéaires et sans assembler les surfaces résultantes se chevauchant, nous pourrons ainsi écrire :
 
 ``` python
 arcpy.Buffer_analysis("Routes", "D:\Routes_buffer.shp", "LARGEUR", "FULL")
@@ -53,7 +53,7 @@ shp_routes_buffer = "D:\Routes_buffer.shp"
 arcpy.Buffer_analysis(layer_routes, shp_routes_buffer, "LARGEUR", "FULL")
 ```
 
-Pour utiliser la valeur par défaut d'un paramètre optionnel, ou pour ne pas passer de valeur à ce paramètre, nous pouvons utiliser un champ vierge : `""`. Par exemple, pour créer une classe d'entités `Route` dans la géodatabase `D:\Travail\Lyon.gdb` et en utilisant la référence spatiale de la couche 
+Pour utiliser la valeur par défaut d'un paramètre optionnel, ou pour ne pas passer de valeur à ce paramètre, nous pouvons utiliser un champ vierge : `""`. Par exemple, pour créer une classe d'entités `Route` dans la géodatabase `D:\Travail\Lyon.gdb` et en utilisant la référence spatiale de la couche
 
 ``` python
 arcpy.CreateFeatureClass_management(r"D:\Travail\Lyon.gdb", "Route", "POLYLINE", "", "", "", "RGF_1993_Lambert_93")
@@ -63,7 +63,7 @@ arcpy.CreateFeatureClass_management(r"D:\Travail\Lyon.gdb", "Route", "POLYLINE",
 
 Cas des requêtes SQL et requêtes SQL avec paramètres
 
-La forme de la requête dépend du type de classe d'entités dont il s'agit. Sur une fichier de forme nous écrirons par exemple `"NAME" = 'Toronto'`, alors que pour une classe d'entités de géodatabase la requête serait `[NAME] = 'Toronto'`. 
+La forme de la requête dépend du type de classe d'entités dont il s'agit. Sur une fichier de forme nous écrirons par exemple `"NAME" = 'Toronto'`, alors que pour une classe d'entités de géodatabase la requête serait `[NAME] = 'Toronto'`.
 
 
 ## Définir l'environnement ##
@@ -86,7 +86,7 @@ for e in envs:
 ## Résultats des géotraitements ##
 Pour les outils de géotraitement retournant des résultats
 
-`getOutput(index)` renvoie la sortie à l'index donné. 
+`getOutput(index)` renvoie la sortie à l'index donné.
 
 ``` python
 getOutput(index)
@@ -100,7 +100,7 @@ Le package ArcPy permet d'autres tâches que le géotraitement. Il possède des 
 * Module de cartographie (`arcpy.mapping`) : ouvrir et manipuler le document ArcMap
 * Module de manipulation de données (`arcpy.da`) : gestion des tables et classes d'entités, recherche et mise à jour des données
 * Module d'analyse spatiale (`arcpy.sa`) : outils traditionnels d'analyse spatiale
-* Module d'analyse de réseaux (`arcpy.na`) : outils de l'extension Network Analyst 
+* Module d'analyse de réseaux (`arcpy.na`) : outils de l'extension Network Analyst
 * Module temporel (`arcpy.time`) : travailler avec des intervalles de temps
 
 
@@ -121,7 +121,7 @@ Propriétés de l'objet `MapDocument` :
 Méthodes de l'objet `MapDocument` :
 
 * `save()` pour sauvegarder le mxd
-* `saveACopy(file_name)` pour sauvegarder le document dans un nouveau mxd 
+* `saveACopy(file_name)` pour sauvegarder le document dans un nouveau mxd
 
 ### Le bloc de données ###
 L'objet `DataFrame`du module `mapping` représente le bloc de données d'ArcMap. La méthode `zoomToSelectedFeatures()` modifie l'étendue de l'affichage pour la faire correspondre avec l'étendue de la sélection du bloc de données.
@@ -142,7 +142,7 @@ La couche du document ArcMap est représentée par l'objet `Layer` du module `ma
 lyr = arcpy.mapping.Layer(<chemin_vers_le_lyr>)
 ```
 
-Dans ArcMap, il existe plusieurs types de couche. Les fonctions `isFeatureLayer()`, `isRasterLayer()` ou `isGroupLayer()` permettent d'identifier le type de l'objet `Layer`. 
+Dans ArcMap, il existe plusieurs types de couche. Les fonctions `isFeatureLayer()`, `isRasterLayer()` ou `isGroupLayer()` permettent d'identifier le type de l'objet `Layer`.
 
 Propriétés de l'objet `Layer` (certaines propriétés ne sont pas supportées par tous les types de couche) :
 
@@ -179,7 +179,7 @@ Trois fonctions du module `mapping`permettent d'ajouter une couche à un documen
 
 `RemoveLayer(data_frame, layer)` permet à l'inverse de supprimer une couche en précisant son bloc de données.  
 
-Une autre solution pour créer une couche et l'ajouter à un document ArcMap coniste à utiliser l'outil *Générer une couche* du jeu d'outils *Couches et vues tabulaires*. Pour une couche vecteur, la syntaxe est : 
+Une autre solution pour créer une couche et l'ajouter à un document ArcMap coniste à utiliser l'outil *Générer une couche* du jeu d'outils *Couches et vues tabulaires*. Pour une couche vecteur, la syntaxe est :
 
 ```python
 flayer = arcpy.MakeFeatureLayer_management (in_features, out_layer, {where_clause})`,   
@@ -290,11 +290,11 @@ Le paramètre `selection_type` peut prendre les valeurs suivantes :
 Les relations spatiales prises en charge sont : *INTERSECT*, *WITHIN_A_DISTANCE*, *CONTAINS*, *WITHIN*, *ARE_IDENTICAL_TO*, etc. Le paramètre `invert_spatial_relationship` permet d'inverser le résultat une fois l'opération spatiale effecutée.
 
 ### Les curseurs ###
-Un curseur fournit un moyen de parcourir un ensemble d'enregistrements d'une table ou classe d'entités. Trois types de curseurs sont disponibles dans ArcPy : `SearchCursor()`, `UpdateCursor()` et `InsertCursor()`. 
+Un curseur fournit un moyen de parcourir un ensemble d'enregistrements d'une table ou classe d'entités. Trois types de curseurs sont disponibles dans ArcPy : `SearchCursor()`, `UpdateCursor()` et `InsertCursor()`.
 
 Le curseur de recherche possède deux méthodes : `reset()` pour se placer sur le premier élément et `next()` pour avancer à l'élément suivant. Le curseur de mise à jour possède deux méthode supplémentaires pour supprimer ou mettre à jour une ligne (respectivement `deleteRow()` et `updateRow()`). Le curseur d'insertion ne possède qu'une méthode `insertRow(row)` pour insérer une ligne.
 
-Ces curseurs existent en deux versions : 
+Ces curseurs existent en deux versions :
 
 * une dans la base de la librairie ArcPy : `arcpy.curseur(table, {where_clause})`
 * une dans le module d'accès aux données d'ArcPy : `arcpy.da.curseur(table, field_names, {where_clause})`
@@ -407,15 +407,8 @@ SetProgressor(type, {message}, {min_range}, {max_range}, {step_value})
 
 
 ## Gestion des entrées/sorties ##
-Pour récupérer les paramètres passés à un script ArcPy, nous pouvons utiliser la fonction `arcpy.GetParameterAsText(i)`. Elle est identique à l'instruction `sys.argv[i]` mais ne nécessite pas d'importer la librairie `sys`. L'indexation des paramètres (le `i`) commence à 0. 
+Pour récupérer les paramètres passés à un script ArcPy, nous pouvons utiliser la fonction `arcpy.GetParameterAsText(i)`. Elle est identique à l'instruction `sys.argv[i]` mais ne nécessite pas d'importer la librairie `sys`. L'indexation des paramètres (le `i`) commence à 0.
 
 Notons également que la méthode `GetParameter()` permet de récupérer directement un objet passé en paramètre du script plutôt que la chaîne de caractère le décrivant.
 
-De la même manière, les méthode `SetParameter()` et `SetParameterAsText()` sont utilisées pour gérer le sorties. 
-
-
-
-
-
-
-
+De la même manière, les méthode `SetParameter()` et `SetParameterAsText()` sont utilisées pour gérer le sorties.
