@@ -167,7 +167,7 @@ La documentation complète de la librairie se trouve à l'adresse suivante : <ht
   * une chaîne de caractère détaillant le motif d'invalidité (ou une chaîne vide s'il est valide).
 2. Ecrire une fonction qui prend en entrée deux linestrings et retourne leur intersection.
 Le deux linestring et l'intersection seront ensuite dessinées dans un graphique matplotlib.
-3. Ecrire un programme qui prend en entrée un fichier csv[^3] contenant les coordonnées d'une liste de points et une distance `dist_ref` et qui retourne un booléen indiquant si un point se situe à une distance supérieure à `disr_ref` de tous les autres points ou si chacun des points se situe à moins de `dist_ref` d'un autre point.
+3. Ecrire un programme qui prend en entrée un fichier csv[^3] contenant les coordonnées d'une liste de points et une distance `dist_ref` et qui retourne un booléen indiquant si un point se situe à une distance supérieure à `dist_ref` de tous les autres points ou si chacun des points se situe à moins de `dist_ref` d'un autre point.
 
 [^3]: Comma-separated Values (CSV) : format représentant des données tabulaires sous forme de de valeurs séparées par des virgules.
 
