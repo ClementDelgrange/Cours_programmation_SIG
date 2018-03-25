@@ -90,7 +90,7 @@ Alors que l'OGC édite des normes favorisant l'interopérabilité et les échang
 \end{note}
 
 
-## validité des géométries
+## Validité des géométries
 Au delà d'une simple hiérarchie entre les objets géométriques, la norme *Simple Feature Access* définie également des règles de validité pour chacune des géométries.
 
 Ci dessous nous présentons quelques exemples de polygones invalides.
@@ -552,7 +552,11 @@ plt.axis("equal")
 plt.show()
 ```
 
-Des options permettent naturellement de spécifier la couleur, la transparance ou encore la bordure des géométries dessinées.
+Des options permettent naturellement de spécifier la couleur, la transparence ou encore la bordure des géométries dessinées.
+
+\begin{note}
+Ici nous n'affichons que les géométries dans notre carte, mais il est possible de prendre en compte un fond de carte plus abouti à l'aide du module \code{basemap} (\url{https://github.com/matplotlib/basemap}).
+\end{note}
 
 
 ## Cartes interactives
@@ -579,6 +583,7 @@ En repartant du fichier `trace.gpx` déjà utilisé pour un exercice précédent
 
 1. dans une carte réalisée avec la librairie `descartes`
 2. en la superposant à un fond de carte OpenStreetMap en utilisant la librairie `Folium`
+
 
 
 # Exercice final
