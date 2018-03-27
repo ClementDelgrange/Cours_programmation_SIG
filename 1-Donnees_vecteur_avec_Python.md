@@ -601,4 +601,7 @@ Consignes :
 * Programmation avec Python : <https://github.com/ClementDelgrange/Cours_programmation_avec_Python/blob/master/Cours_Python.pdf>
 * Faire des graphiques en Python : <https://github.com/Python-for-geo-people/Lesson-7-Plotting>
 * Documentation de `shapely` : <http://toblerity.org/shapely/manual.html>
-* Bases de données géospatiales (pour aller plus loin que le cadre de ce cours): <http://www.portailsig.org/content/python-les-bases-de-donnees-geospatiales-1-traitement-classique-principes-et-problemes>
+
+Aller plus loin que le cadre de ce cours :
+* Pandas et GeoPandas pour manipuler des données attributaires : <http://geopandas.org/>
+* Bases de données géospatiales : <http://www.portailsig.org/content/python-les-bases-de-donnees-geospatiales-1-traitement-classique-principes-et-problemes>
