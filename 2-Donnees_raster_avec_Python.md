@@ -1,4 +1,4 @@
-% Visualiser des données géographiques
+% Utilisation de données raster avec Python
 % Clément Delgrange
 % 03/2018
 
@@ -6,6 +6,7 @@
 # Objectifs
 
 * Apprendre à manipuler des raster avec Python
+* Combiner des données raster et vecteur
 
 
 
@@ -57,11 +58,13 @@ Le contenu des différentes bandes du raster sont directement stockées dans des
 Dans l'exemple ci-dessous nous récupérons la valeur de chacune des bandes RGB d'un raster pour ensuite les afficher individuellement.
 ```
 import rasterio
+import matplotlib.pyplot as plt
 
 with rasterio.open('RGB.tif') as src:
     r, g, b = src.read()
 
-imshow(r, cmap='gray')  #
+plt.imshow(r, cmap='gray')
+plt.show()
 ```
 
 Pour accéder au métadonnées d'un raster :
@@ -114,3 +117,8 @@ Consignes :
 * Le raster `DSM.tif` est un MNT;
 * Pour chacun des polygones, il s’agit de calculer l'altitude minimale du MNT sous son emprise.
 * Le résultat est inscrit dans la données d'entrée.
+
+
+# Références
+
+* Introduction à `numpy` : <http://www.courspython.com/apprendre-numpy.html>
