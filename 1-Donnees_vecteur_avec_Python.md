@@ -603,5 +603,5 @@ Consignes :
 * Documentation de `shapely` : <http://toblerity.org/shapely/manual.html>
 
 Aller plus loin que le cadre de ce cours :
-* Pandas et GeoPandas pour manipuler des données attributaires : <http://geopandas.org/>
+* Pandas et GeoPandas pour manipuler des données attributaires : <http://geopandas.org/>, <https://geo-python.github.io/2017/lessons/L5/pandas-overview.html>
 * Bases de données géospatiales : <http://www.portailsig.org/content/python-les-bases-de-donnees-geospatiales-1-traitement-classique-principes-et-problemes>
