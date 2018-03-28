@@ -32,7 +32,7 @@ Celui-ci est référencé à l'intérieur du raster en coordonnées image (posit
 Seules les coordonnées spatiales d'un coin du raster sont connées.
 Les coordonnées spatiales du pixel sont ensuite recalculées à partir des coordonnées du coin, de coordonnées images du pixel, de la résolution et de l'orientation du raster (angle avec le nord).
 
-![Coordonnées images et spatiale d'un raster (source Esri)](img/cours2/coordonnees_images.png)
+![Coordonnées images et spatiale d'un raster (source Esri)](img/cours2/coordonnees_images.gif)
 
 GDAL est la librairie fondamentale de gestion des rasters en géomatique.
 Son développement est supportée par l'OSGeo.
