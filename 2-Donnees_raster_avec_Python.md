@@ -77,14 +77,23 @@ with rasterio.open('RGB.tif') as src:
     print(src.indexes)
 ```
 
+Ou avec un appel plus synthétique :
+```
+with rasterio.open('RGB.tif') as src:
+    print(src.profile)
+```
+
 
 
 ## Exercices
-Créer un masque de l'orthographie `ortho.tif` où les pixels ne peuvent prendre que deux valeurs :
+1. Créer un masque de l'orthographie `ortho.tif` où les pixels ne peuvent prendre que deux valeurs :
 
-* 255 si la somme des trois bandes (rouge, vert et bleu) est supérieure à 300;
+* 255 si la somme des trois bandes (rouge, vert et bleu) est supérieure à 200;
 * 0 sinon.
 
+Sauvegarder le résultat dans un nouveau raster.
+
+2. Permettre à l'utilisateur de choisir la projection du raster en sortie.
 
 
 
@@ -95,7 +104,33 @@ En effet un raster est géoréférencé globalement (classiquement on connaît l
 Aussi le processus de recalage d'un vecteur sur un raster, qui consiste à déterminer les coordonnées images des points de la géométrie, nécessite d'effectuer quelques calculs mathématiques.
 Ces opérations qui permettant d'effectuer la transformation coordonnées spatiales vers coordonnées images, si elles ne sont pas d'une complexité monstrueuse sont rarement implémentées dans les libraires que nous utilisons.
 
-Une librairie comme `buzzard` (<https://github.com/airware/buzzard/>) vise à faciliter la gestion des données géospatiales de différents type et dans différentes projections, en offrant un interface très pythonique à l'utilisateur.
+Il est possible par exemple de s'en sortir par exemple à l'aide de `fiona` pour ouvrir des fichiers de formes et `rasterio` pour les rasters.
+Ces librairies, ayant été développées par une même personne, présentent l'avantage d'offrir une API similaire facilitant le travail du développeur.
+Des sous-modules de `rasterio` apportent par ailleurs des fonctionnalités intéressantes pour combiner différentes données.
+
+Dans l'exemple suivant nous creons un mask dans le raster à partir des géométries dans le fichier de formes :
+```
+import fiona
+import rasterio
+from rasterio.tools.mask import mask
+
+with fiona.open("polygons.shp", "r") as shapefile:
+    geoms = [feature["geometry"] for feature in shapefile]
+
+with rasterio.open("image.tif") as src:
+    out_image, out_transform = mask(src, geoms, crop=True)
+    out_meta = src.meta.copy()
+
+out_meta.update({"driver": "GTiff",
+                 "height": out_image.shape[1],
+                 "width": out_image.shape[2],
+                 "transform": out_transform})
+
+with rasterio.open("masked.tif", "w", **out_meta) as dest:
+    dest.write(out_image)
+```
+
+Une librairie comme `buzzard` (<https://github.com/airware/buzzard/>) vise également à faciliter la gestion des données géospatiales de différents type et dans différentes projections tout en offrant un interface pythonique à l'utilisateur.
 
 L'exemple suivant calcule les coordonnées images d'une ligne :
 ```
@@ -113,8 +148,8 @@ img_coords = ds.ortho.spatial_to_raster(spatial_coords)
 # Exercice final
 Consignes :
 
-* Les données `stock.shp` représentent des polygones;
-* Le raster `DSM.tif` est un MNT;
+* Le fichier de formes `stock.shp` représentent des polygones;
+* Le raster `dsm.tif` est un MNT;
 * Pour chacun des polygones, il s’agit de calculer l'altitude minimale du MNT sous son emprise.
 * Le résultat est inscrit dans la données d'entrée.
 
@@ -122,3 +157,4 @@ Consignes :
 # Références
 
 * Introduction à `numpy` : <http://www.courspython.com/apprendre-numpy.html>
+* Documentation de `rasterio` : <https://mapbox.s3.amazonaws.com/playground/perrygeo/rasterio-docs/python_manual.html>
