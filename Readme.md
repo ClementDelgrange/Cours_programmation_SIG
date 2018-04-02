@@ -25,6 +25,15 @@ Notre premier jalon sera de redéfinir ce que nous entendons par SIG et d'établ
 4. Python et QGIS
 5. Analyse de réseaux
 
+### Exercices / corrections
+
+Une correction est proposée pour la plupart des exercices.
+Pour les scripts Python utilisant des données du répertoire `data`, nous supposons qu'ils sont lancés depuis la racine du répertoire :
+```
+$ cd Cours_programmation_SIG
+$ python3 corrections/cours1/script4.py
+```
+
 
 ## Regénérer les slides et pdf par vous même
 Les supports de cours sont rédigés en markdown. La génération des documents finaux (cours et TP en pdf, présentations en HTML) fait appel à l'utilitaire [pandoc](https://pandoc.org/). Pour les présentations la libraire [reveal.js](https://revealjs.com/#/) doit avoir été téléchargée pour bénéficier de la mise en page correcte.

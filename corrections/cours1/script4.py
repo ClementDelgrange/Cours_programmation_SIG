@@ -25,7 +25,7 @@ def shapely_to_geojson(ls, geojson_path):
 
 
 if __name__ == "__main__":
-	gpx_path = "/home/prof/clement/trace.gpx"
-	geojson_path = "/home/prof/clement/trace.geojson"
+	gpx_path = "data/trace.gpx"
+	geojson_path = "data/trace.geojson"
 	ls = gpx_to_shapely(gpx_path)
 	shapely_to_geojson(ls, geojson_path)

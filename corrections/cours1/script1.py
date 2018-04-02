@@ -34,6 +34,7 @@ def get_polygon_validity(points):
 
 
 if __name__ == "__main__":
+	# The five following points make a cross prolygon
 	p1 = Point([0, 0])
 	p2 = Point([0, 5])
 	p3 = Point([5, 0])
@@ -42,6 +43,7 @@ if __name__ == "__main__":
 	points = [p1, p2, p3, p4, p5]
 	print(get_polygon_validity(points))
 
+	# The five following points make a valid square
 	p1 = Point([0, 0])
 	p2 = Point([0, 5])
 	p3 = Point([5, 5])
