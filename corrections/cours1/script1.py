@@ -1,3 +1,4 @@
+"""Manipulate shapely geometries and test their validity"""
 from shapely.geometry import Point, Polygon
 from shapely.validation import explain_validity
 

@@ -1,3 +1,4 @@
+"""Read a GPX file and transform its content to a shapely geometry"""
 import gpxpy
 from shapely.geometry import LineString
 import json

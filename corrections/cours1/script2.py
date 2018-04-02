@@ -1,3 +1,4 @@
+"""Intersect linestring and plot the result in matplotlib"""
 from shapely.geometry import LineString, Point, MultiPoint
 import matplotlib.pyplot as plt
 

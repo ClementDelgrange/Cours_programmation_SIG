@@ -1,3 +1,4 @@
+"""Basic spatial operation with shapely (buffer, union)"""
 import csv
 from shapely.geometry import Point, MultiPolygon
 from shapely.ops import cascaded_union
