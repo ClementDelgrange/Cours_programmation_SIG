@@ -148,7 +148,7 @@ img_coords = ds.ortho.spatial_to_raster(spatial_coords)
 # Exercice final
 Consignes :
 
-* Le fichier de formes `stock.shp` représentent des polygones;
+* Le fichier de formes `polygons.shp` représentent des polygones;
 * Le raster `dsm.tif` est un MNT;
 * Pour chacun des polygones, il s’agit de calculer l'altitude minimale du MNT sous son emprise.
 * Le résultat est inscrit dans la données d'entrée.
