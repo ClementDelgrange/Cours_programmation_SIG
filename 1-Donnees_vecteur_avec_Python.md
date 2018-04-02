@@ -1,6 +1,6 @@
 % Utilisation de données vecteur avec Python
 % Clément Delgrange
-% 03/2018
+% Mars 2018
 
 
 # Objectifs
@@ -479,7 +479,7 @@ Vous pouvez retrouver quelques exemples d'utilisation du module `osgeo.osr` ici 
 ## Exercices
 1. Ecrire une fonction permettant de transformer n'importe quelle type de géométrie au format GeoJSON d'un système de coordonnées vers un autre.
 2. Considérons un polygone dont la représentation WKT est :
-`POLYGON ((25.80954551696777 66.55355747998166, 25.85220336914062 66.57588240547837, 25.85108757019043 66.57622360944596, 25.808687210083 66.55386483992372, 25.80954551696777 66.55355pandoc -s -N --listings --template=template/template.latex -o747998166))`.
+`POLYGON ((25.80954551696777 66.55355747998166, 25.85220336914062 66.57588240547837, 25.85108757019043 66.57622360944596, 25.808687210083 66.55386483992372, 25.80954551696777 66.55355747998166))`.
 Les coordonnées de ce polygone sont exprimées en latitude / longitude (WGS84).
 Calculer l'aire d'un polygone en pseudo Mercator et en UTM zone 35N.
 Quel est le bon résultat?

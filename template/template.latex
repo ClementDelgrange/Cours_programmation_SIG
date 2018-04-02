@@ -94,6 +94,24 @@ Réponse \> ....................................................................
 	\end{tabular}
 }
 
+\newsavebox{\mybox}
+\newenvironment{objectifs}{%
+	\begin{lrbox}{\mybox}
+		\begin{minipage}{0.9\textwidth}
+			\vspace{1em}
+			\begin{tabular}[t t]{c c}
+				\includegraphics[width=0.1\linewidth]{img/goals.jpg} &
+				\begin{minipage}[c]{0.8\linewidth}
+					\hspace{2em}\textbf{\large{Objectifs :}} \\
+}{
+				\end{minipage}
+			\end{tabular}
+			\vspace{1em}
+		\end{minipage}
+	\end{lrbox}
+	\fbox{\usebox{\mybox}}
+}
+
 \newcommand{\code}[1]{\lstinline{#1}}
 
 \newenvironment{python}{%
@@ -160,9 +178,11 @@ Réponse \> ....................................................................
 
 		\begin{center}
 			\hrule
+				\vspace{1em}
+				{\small \textit{Programmation SIG}}\\
 				\vspace{0.5cm}
 				{\huge \bfseries $title$}
-				\vspace{0.7cm}
+				\vspace{1cm}
 			\hrule
 
 			\vspace{3.5cm}
