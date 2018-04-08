@@ -129,7 +129,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Infos générales sur le document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Le système ArcGIS}
+\title{Python et ArcGIS}
 \author{Clément Delgrange}
 \date{Avril 2018}
 
@@ -212,9 +212,7 @@ Notre cas d'étude sera le suivant : nous disposons de données sur le positionn
 Au cours de ce TD, nous nous contraindrons à utiliser le plus possible les outils de l'ArcToolbox. La finalité étant de programmer dans ArcMap, nous verrons en effet que l'ArcToolbox est liée à Python.
 
 \begin{note}
-ArcMap est toujours basé sur la version 2.7 de Python, différente de celle utilisée pour les cours de Pyhton à l'ENSG.
-
-Les différences ne sont pas énormes, mais il est prudent de s'en souvenir en cas de message d'erreur étrange.
+ArcMap est basé sur la version 2.7 de Python, différente de celle utilisée pour les cours de Python à l'ENSG.
 \end{note}
 
 
@@ -241,7 +239,7 @@ ArcToolbox est une fenêtre ancrable qui peut être placée n'importe où dans l
 
 
 \subsubsection{Utilisation de l'ArcToolbox pour créer une géodatabase}
-Afin d'organiser les données que nous allons créer, nous souhaitons utiliser une géodatabase fichier. Pour la créer, nous aimerions utiliser l'ArcToolbox mais nous ne savons pas si un tel outil existe, ni comment le localiser dans l'arborescence des Toolbox.
+Afin d'organiser les données que nous allons créer, nous souhaitons utiliser une géodatabase fichier.
 
 \begin{note}
 Esri propose deux types de géodatabase pour des utilisations bureautiques :
@@ -251,6 +249,9 @@ Esri propose deux types de géodatabase pour des utilisations bureautiques :
 \end{itemize}
 Sauf cas exceptionnels, nous utiliserons toujours des géodatabases fichier.
 \end{note}
+
+Pour la créer, nous voudrions utiliser une Toolbox plutôt que de passer par ArcCatalog.
+Il nous faut donc trouver si une telle Toolbox existe.
 
 \action Activez l'outil de recherche en cliquant sur le bouton dans la barre d'outils \textbf{Standard}.
 \begin{figure}[H]
@@ -286,7 +287,7 @@ Nous pouvons par exemple spécifier un espace de travail par défaut, une étend
 	\center \includegraphics{img/td3/environnements_menu.png}\\
 \end{figure}
 
-\action Développez \textbf{Espace de travail} et pour \textbf{Espace de travail courant} choisissez le chemin de la géodatabase personnelle que vous avez créée précédemment.
+\action Développez \textbf{Espace de travail} et pour \textbf{Espace de travail courant} choisissez le chemin de la géodatabase fichier que vous avez créée précédemment.
 \begin{figure}[H]
 	\center \includegraphics[width=0.8\textwidth]{img/td3/environnements_espace_travail.png}\\
 \end{figure}
@@ -683,29 +684,33 @@ Nous avons également vu que chaque Toolbox est équivalente à une fonction Pyt
 
 
 \subsection{Extension Python pour ArcMap}
-La dernière solution que nous allons étudier consiste à ajouter une extension dans ArcMap. L'extension sera mieux intégrée à l'interface d'ArcMap puisqu'elle pourra prendre la forme d'un menu ou d'une barre d'outils et pourra écouter certains événements (ouverture d'une session d'édition, fermeture du document, etc.).
+La dernière solution que nous allons étudier consiste à ajouter une extension dans ArcMap.
+L'extension sera mieux intégrée à l'interface d'ArcMap puisqu'elle pourra prendre la forme d'un menu ou d'une barre d'outils et pourra écouter certains événements (ouverture d'une session d'édition, fermeture du document, etc.).
 
 La diffusion des extensions est également aisée puisque nous produirons un addin ArcMap comme ceux que nous avons utilisé lors du premier TD.
 
 \subsubsection{Création de l'extension}
-\action Rendez-vous sur sur le site d'Esri\footnote{\url{http://www.arcgis.com/home/item.html?id=5f3aefe77f6b4f61ad3e4c62f30bff3b}} pour télécharger l'assistant de création d'extensions Python (\textit{ArcGIS Python Add-In Wizard}).
+Nous utiliserons un assistant pour créer la structure de notre première extension Python pour ArcMap.
 
-\action Décompresser l'archive téléchargée.
+\action Rendez-vous sur sur le site d'Esri\footnote{\url{https://desktop.arcgis.com/fr/arcmap/latest/analyze/python-addins/obtaining-the-python-add-in-wizard.htm}} pour télécharger l'\textit{ArcGIS Python Add-In Wizard}.
 
-L'exécutable se trouve alors dans \textit{addin\_assistant\textbackslash{}bin\textbackslash{}addin\_assistant.exe}.
+\action Décompresser l'archive.
+
+Elle contient un exécutable qui se trouve alors dans \textit{addin\_assistant\textbackslash{}bin\textbackslash{}addin\_assistant.exe}.
 
 \action Lancez l'assistant.
 
-\action Choisissez le répertoire où sera enregistré le complément.
+\action Pour commencer, vous devez choisir le répertoire où sera enregistré le complément (ce répertoire doit être vide).
 
-\action Dans l'onglet \textbf{Project Settings}, précisez quelques propriétés (nom, version, description, auteur, entreprise) :
+\action Ensuite, en restant dans l'onglet \textbf{Project Settings}, indiquez quelques propriétés générales pour votre complément : nom, version, description, auteur, entreprise, etc.
 \begin{figure}[H]
 	\center \includegraphics[width=0.55\textwidth]{img/td3/addin_assistant-1.png} \\
 \end{figure}
 
 \action Allez ensuite dans l'onglet \textbf{Add-in content}.
 
-Cet onglet permet d'élaborer le contenu de l'addin. Différents types de composants sont disponibles :
+C'est cet onglet qui permet d'élaborer le contenu du complément.
+Différents types de composants sont disponibles :
 \begin{itemize}
 	\item les extensions qui permettent de gérer des événements liés à l'application;
 	\item les menus, et sous-menu et boutons associés;
@@ -719,14 +724,12 @@ Cet onglet permet d'élaborer le contenu de l'addin. Différents types de compos
 	\center \includegraphics[width=0.6\textwidth]{img/td3/addin_assistant-2.png} \\
 \end{figure}
 
-\action Effectuez ensuite un clic droit sur \textbf{MENUS} pour ajouter un nouveau menu.
-
-\action Nommez ce menu \textit{Métro itinéraire}
+\action De la même manière ajouter un nouveau menu que vous nommerez \textit{Métro itinéraire}.
 \begin{figure}[H]
 	\center \includegraphics[width=0.6\textwidth]{img/td3/addin_assistant-3.png} \\
 \end{figure}
 
-\action Par clic droit sur le menu \textit{Métro itinéraire}, ajoutez un bouton.
+\action Par clic droit sur votre menu \textit{Métro itinéraire}, ajoutez un bouton.
 
 \action Configurez le bouton de la manière suivante :
 \begin{figure}[H]
@@ -735,25 +738,26 @@ Cet onglet permet d'élaborer le contenu de l'addin. Différents types de compos
 
 \action Cliquez sur \textit{Save} pour enregistrer la configuration.
 
-Vous pouvez alors refermer l'assistant et ouvrir le répertoire où vous avez enregistré votre extension.
+Vous pouvez alors refermer l'assistant et ouvrir le répertoire où vous avez enregistré votre complément.
 \begin{figure}[H]
 	\center \includegraphics{img/td3/addin_repertoire.png} \\
 \end{figure}
 
-Un addin Python pour ArcMap contiendra toujours les éléments suivants :
+Un complément Python pour ArcMap contiendra toujours les éléments suivants :
 \begin{itemize}
 	\item un fichier \code{config.xml} qui contient la description de la structure de l'addin (ce que nous avons paramétré à l'aide de l'assistant);
-	\item un répertoire \code{Install} contenant un fichier \code{addinmetro\_addin.py} où se trouve la logique métier de l'addin;
+	\item un répertoire \code{Install} contenant un fichier python (ici \code{addinmetro\_addin.py}) où se trouve la logique métier de l'addin (ie. le code qui sera exécuté lorsque l'on appuyera sur un bouton ou activera une extension);
 	\item un fichier \code{makeaddin.py} permettant de générer à partir des éléments précédent un fichier \textit{.esriaddin} reconnu par ArcMap.
 \end{itemize}
 
 
 \subsubsection{Modification de la structure de l'extension}
-L'assistant de création de complément Python est très pratique pour démarrer la configuration d'un projet. Il n'est cependant pas impossible de s'en passer. Dans ce paragraphe, nous ajouterons un bouton au menu \textit{Métro itinéraire} précédement créé.
+Si l'assistant de création de compléments Python est très pratique pour élaborer la structure initiale d'un projet, s'en servir n'est pas obligatoire.
+Dans cette partie, nous allons voir comment ajouter à un bouton à un complément existant sans passer par l'assistant : nous ajouterons un bouton d'aide au menu \textit{Métro itinéraire}.
 
 \action Ouvrez le fichier \textit{config.xml} dans un éditeur de texte.
 
-\action Après avoir observé la structure du fichier xml, ajoutez un nouveau bouton au menu \textit{Métro itinéraire}
+\action Après avoir observé le contenu des balises \code{Commands} et \code{Menus} du fichier \code{config.xml}, ajoutez un nouveau bouton au menu \textit{Métro itinéraire}
 
 Ce bouton aura les caractéristiques suivantes :
 \begin{itemize}
@@ -762,62 +766,54 @@ Ce bouton aura les caractéristiques suivantes :
 	\item \code{id} = addinmetro\_addin.button2
 \end{itemize}
 
-L'attribut \code{class="ButtonClass2"} permet de lier le bouton à une classe Python qui est appelé lorsque l'utilisateur interagit avec l'interface. Il est donc nécessaire d'ajouter cette classe au fichier contenant la logique métier.
+L'attribut \code{class="ButtonClass2"} permet de lier le bouton à une classe Python qui sera appelé lorsque l'utilisateur cliquera sur le bouton.
 
-\action Ouvrez le fichier \textit{addinmetro\_addin.py}.
+\action Ouvrez le fichier \textit{addinmetro\_addin.py} pour y ajouter cette classe.
 
-\action En vous inspirant de la classe \code{ButtonClass1}, créez une classe pour le bouton d'aide.
+Comme pour la classe \code{ButtonClass1} déjà présente, la classe \code{ButtonClass2} doit contenir au moins deux méthodes :
+\begin{itemize}
+	\item le constructeur (\code{__init__()}) qui définit l'état initial du bouton;
+	\item la méthode \code{onClick()} qui contient le code appelé lors d'un clic sur le bouton.
+\end{itemize}
 
-\action Quelle fonction devrait être appelée lors d'un clic sur un bouton ?
+\action Créez la classe \code{ButtonClass2} avec ses deux méthodes.
 
-\reponse
-
-\action Dans cette fonction, ajoutez l'instruction suivante :
-\begin{lstlisting}
-pythonaddins.MessageBox("Aide de l'extension Metro...", "Aide")
-\end{lstlisting}
+Un clic sur notre bouton d'aide provoquera l'ouverture d'une fenêtre avec un message d'information à destination de l'utilisateur.
+Dans un complément Python pour ArcMap, l'affichage d'une boîte de dialogue est réalisé grace à l'instruction \code{pythonaddins.MessageBox(message, titre)}.
 
 \begin{note}
 pythonaddins est un module qui apporte des fonctionnalités pour la gestion de l'interface utilisateur dans des compléments Python (il n'est utilisable que dans le cadre de compléments Python). La documentation en ligne\footnote{\url{https://desktop.arcgis.com/fr/desktop/latest/guide-books/python-addins/the-pythonaddins-module.htm}} nous renseigne sur les fonctions utilisables de ce module.
-
-La fonction \code{MessageBox(message, titre)} permet d'ouvrir une boîte de dialogue simple.
 \end{note}
 
-Générer une première fois l'addin pour voir s'il est conforme à nos attentes.
+\action Ecrivez le code permettant d'afficher un message d'aide.
 
-\action Exécutez le fichier \textit{makeaddin.py} (avec Python 2.7).
-
-\action Installez ensuite l'addin de manière classique (voir TD1 de programmation sous SIG).
-
-\action Ouvrez ArcMap pour tester votre addin.
+\action En exécutant le \code{makeaddin.py}, générez une première fois l'addin et installez-le pour voir s'il est conforme.
 
 
 \subsubsection{Ajout de fonctionnalités}
-Avant de commencer le développement de la fonctionnalité de calcul d'itinéraire, nous avons besoin de nous assurer que deux stations (et uniquement deux) sont bien sélectionnées dans ArcMap.
+\action Ajoutez un nouveau qui permette d'ajouter l'ensemble des stations dans une couche \textit{Stations} dans ArcMap (en vous basant sur les développement des parties précédentes).
 
-\action Complétez la méthode \code{onClick()} du bouton \textit{Calculer itinéraire} pour qu'elle réalise les opérations suivantes :
+\begin{note}
+Les ArcToolbox suivantes pourront être utiles :
 \begin{itemize}
-	\item s'il n'existe pas encore de classe d'entités \textit{Stations} regroupant toutes les stations :
+	\item Supprimer les doublons
+	\item Combiner
+	\item Générer une couche
+\end{itemize}
+\end{note}
+
+\action Complétez le code du bouton \textit{Calculer itinéraire} pour qu'il réalise les opérations suivantes :
+\begin{itemize}
+	\item si la couche \textit{Stations} n'est pas présente, afficher un message d'erreur;
+	\item si la couche \textit{Stations} est présente, décompte du nombre de stations sélectionnées dans cette couche :
 	\begin{itemize}
-		\item copie de l'ensemble des stations dans une unique classe d'entités \textit{Stations} et suppression des doublons;
-		\item ajout de la classe d'entités au document;
-	\end{itemize}
-	\item sinon, décompte du nombre de stations sélectionnées dans la couche :
-	\begin{itemize}
-		\item si deux stations sont sélectionnées : lancer le calcul de l'itinéraire (ne rien faire pour l'instant);
+		\item si deux stations sont sélectionnées : lancer le calcul de l'itinéraire (nous complèterons par la suite);
 		\item sinon, afficher un message d'erreur.
 	\end{itemize}
 \end{itemize}
 
-Vous veillerez à informer l'utilisateur des actions effectuées.
-
-Pour tester l'existence d'une classe d'entités, vous utiliserez la fonction \code{arcpy.Exists(object)}. Les ArcToolbox suivantes seront également utiles :
-\begin{itemize}
-	\item Supprimer les doublons
-	\item Combiner
-	\item Compter
-	\item Générer une couche
-\end{itemize}
-
+\begin{note}
+Pour tester l'existence d'une classe d'entités, vous utiliserez la fonction \code{arcpy.Exists(object)}.
+\end{note}
 
 \end{document}

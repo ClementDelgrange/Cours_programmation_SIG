@@ -1,1 +1,8 @@
+# MacOS files
 .DS_Store
+
+# Latex files
+*.aux
+*.log
+*.out
+*.synctex.gz
