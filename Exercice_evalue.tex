@@ -1,10 +1,11 @@
-% ArcPy - module data access
-% Clément Delgrange
-% Avril 2018
-
-% Modules generaux
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
+
+\title{ArcPy - module data access}
+\author{Clément Delgrange}
+\date{Avril 2018}
+
+% Modules generaux
 \usepackage[T1]{fontenc}
 \usepackage[francais]{babel} % prise en charge du francais
 \usepackage[table]{xcolor} % tableaux
@@ -124,14 +125,6 @@
 	\end{lstlisting}
 }
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Infos générales sur le document
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{ArcPy - module data access}
-\author{Clément Delgrange}
-\date{Avril 2018}
-
 % Entetes et pieds de page
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -173,9 +166,19 @@
 				\vspace{1cm}
 			\hrule
 
-			\vspace{3.5cm}
+			\vspace{3cm}
 			%\includegraphics[width=400px]{images/logo_python.png}
-			\vspace{5cm}
+			\begin{objectifs}
+			\begin{itemize}
+				\item enchaîner des géotraitements pour effectuer des opérations complexes
+				\item découvrir le module d'accès aux données de la bibliothèque Arcpy et en particulier :
+				\begin{itemize}
+					\item savoir utiliser les curseurs
+					\item être capable de manipuler les géométries
+				\end{itemize}
+			\end{itemize}
+			\end{objectifs}
+			\vspace{4cm}
 
 			\large \textit{\@author}\\
 			\small \textit{\@date}
@@ -183,18 +186,6 @@
 	\end{sffamily}
 \makeatother
 \end{titlepage}
-
-
-\begin{objectifs}
-\begin{itemize}
-	\item enchaîner des géotraitements pour effectuer des opérations complexes
-	\item découvrir le module d'accès aux données de la bibliothèque Arcpy et en particulier :
-	\begin{itemize}
-	\item savoir utiliser les curseurs
-	\item être capable de manipuler les géométries
-	\end{itemize}
-\end{itemize}
-\end{objectifs}
 
 
 

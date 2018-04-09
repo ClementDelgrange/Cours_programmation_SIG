@@ -1,10 +1,11 @@
-% Python et ArcGIS
-% Clément Delgrange
-% Avril 2018
-
-% Modules generaux
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
+
+\title{Python et ArcGIS}
+\author{Clément Delgrange}
+\date{Avril 2018}
+
+% Modules generaux
 \usepackage[T1]{fontenc}
 \usepackage[francais]{babel} % prise en charge du francais
 \usepackage[table]{xcolor} % tableaux
@@ -125,14 +126,6 @@
 	\end{lstlisting}
 }
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Infos générales sur le document
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Python et ArcGIS}
-\author{Clément Delgrange}
-\date{Avril 2018}
-
 % Entetes et pieds de page
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -174,9 +167,16 @@
 				\vspace{1cm}
 			\hrule
 
-			\vspace{3.5cm}
+			\vspace{4cm}
 			%\includegraphics[width=400px]{images/logo_python.png}
-			\vspace{5cm}
+			\begin{objectifs}
+				\begin{itemize}
+					\item connaître les différentes manières d'utiliser Python dans 		ArcMap
+					\item être capable d'écrire un script de géotraitement simple
+					\item connaître l'organisation générale de la bibliothèque ArcPy
+				\end{itemize}
+			\end{objectifs}
+			\vspace{3cm}
 
 			\large \textit{\@author}\\
 			\small \textit{\@date}
@@ -184,23 +184,6 @@
 	\end{sffamily}
 \makeatother
 \end{titlepage}
-
-
-
-\begin{objectifs}
-\begin{itemize}
-	\item connaître les différentes manières d'utiliser Python dans ArcMap
-	\item être capable d'écrire un script de géotraitement simple
-	\item connaître l'organisation générale de la bibliothèque ArcPy
-\end{itemize}
-\end{objectifs}
-
-
-%\paragraph{Ressources utiles}
-%\begin{itemize}
-%	\item \textit{Cours de programmation sous SIG - Memo ArcPy}
-%	\item Documentation d'ArcPy : \url{http://desktop.arcgis.com/fr/desktop/latest/analyze/arcpy}
-%\end{itemize}
 
 
 \section*{Préalables}
