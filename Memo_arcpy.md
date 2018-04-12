@@ -1,5 +1,5 @@
 % Programmation sous SIG - ArcPy
-%
+% Clément Delgrange
 % 2018
 
 
@@ -213,14 +213,14 @@ ArcPy possède un ensemble de fonctions destinées à lister des données dans l
 	* *table_type = dBASE, INFO*
 
 
-Ci-dessou nous listons les classes d'entités d'une géodatabase et affichons leur chemin d'accès complet :
+Ci-dessous nous listons les classes d'entités d'une géodatabase et affichons leur chemin d'accès complet :
 
 ``` python
 arcpy.env.workspace = r"D:\Travail\Lyon.gdb"
 fc_list = arcpy.ListFeatureClasses()
 for fc in fc_list:
     path = os.path.join(arcpy.env.workspace, fc)
-	print(path)
+	  print(path)
 ```
 
 ### Vérifier l'existence ###
@@ -231,7 +231,7 @@ Par exemple, pour supprimer, si elle existe, la classe d'entités *Route* de la 
 ``` python
 arcpy.env.workspace = r"D:\Travail\Lyon.gdb"
 if arcpy.Exists("Route"):
-	arcpy.Delete_management("Route")
+		arcpy.Delete_management("Route")
 ```
 
 ### Les champs ###
