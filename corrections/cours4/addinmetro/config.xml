@@ -1,0 +1,35 @@
+<ESRI.Configuration xmlns="http://schemas.esri.com/Desktop/AddIns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Metro</Name>
+  <AddInID>{f519a278-44cc-4ef2-8c2c-e633c9e32247}</AddInID>
+  <Description>Calcul d'itineraires dans le metro</Description>
+  <Version>0.1</Version>
+  <Image />
+  <Author>C. Delgrange</Author>
+  <Company>ENSG</Company>
+  <Date>16/04/2018</Date>
+  <Targets>
+    <Target name="Desktop" version="10.5" />
+  </Targets>
+  <AddIn language="PYTHON" library="addinmetro_addin.py" namespace="addinmetro_addin">
+    <ArcMap>
+      <Commands>
+        <Button caption="Calculer itineraire" category="Metro" class="ButtonClass1" id="addinmetro_addin.button1" image="" message="" tip="Calcul d'un itineraire dans le metro"><Help heading="" /></Button>
+        <Button caption="Aide" category="Metro" class="ButtonClass2" id="addinmetro_addin.button2" image="" message="" tip=""><Help heading="" /></Button>
+        <Button caption="Construire le reseau" category="Metro" class="ButtonClass3" id="addinmetro_addin.button3" image="" message="" tip=""><Help heading="" /></Button>
+      </Commands>
+      <Extensions>
+        <Extension autoLoad="true" category="Metro" class="ExtensionClass" description="" id="addinmetro_addin.extension" name="Metro Extension" productName="Metro Extension" showInExtensionDialog="true" />
+      </Extensions>
+      <Toolbars></Toolbars>
+      <Menus>
+        <Menu caption="Metro itin&#233;raires" category="Metro" id="addinmetro_addin.menu" isRootMenu="true" isShortcutMenu="false" separator="false">
+          <Items>
+            <Button refID="addinmetro_addin.button3" />
+            <Button refID="addinmetro_addin.button1" />
+            <Button refID="addinmetro_addin.button2" />
+          </Items>
+        </Menu>
+      </Menus>
+    </ArcMap>
+  </AddIn>
+</ESRI.Configuration>
